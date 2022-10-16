@@ -1,0 +1,28 @@
+﻿PM-02-28|08:45:36 - ENTRADA - 12 - João Carlos
+2022-02-28|08:49:52 - ENTRADA - 5 - João Carlos
+2022-02-28|08:50:55 - ENTRADA - R$120 - João Carlos
+2022-02-28|09:11:38 - ENTRADA - R$12 - João Carlos
+2022-02-28|09:18:24 - ENTRADA - R$9 - Andrey Felipe
+2022-02-28|09:21:34 - ENTRADA - R$12 - Andrey Felipe
+2022-02-28|09:21:34 - COMISSAO - R$0.48 - Andrey Felipe
+2022-02-28|09:24:36 - ENTRADA - R$12 - Andrey Felipe
+2022-02-28|09:24:36 - COMISSAO - R$0.48 - Andrey Felipe
+2022-03-01|01:46:47 - ENTRADA - R$12 - João Carlos
+2022-03-01|01:46:47 - COMISSAO - R$0.48 - João Carlos
+2022-03-01|02:31:25 - CREDITO - R$100 - Andrey Felipe
+2022-03-01|02:31:59 - DEBITO - R$100 - Andrey Felipe
+2022-03-01|02:32:42 - DEBITO - R$100 - Andrey Felipe
+2022-03-01|09:29:54 - DEBITO - R$120 - Andrey Felipe
+2022-03-01|09:30:09 - CREDITO - R$220 - Andrey Felipe
+2022-03-01|09:30:21 - CREDITO - R$120 - João Carlos
+2022-03-01|09:30:27 - DEBITO - R$150 - João Carlos
+2022-03-01|09:58:44 - ENTRADA - R$10 - João Carlos
+2022-03-01|09:58:44 - COMISSAO - R$0.4 - João Carlos
+2022-03-01|07:14:23 - ENTRADA - R$10 - Appbet
+2022-03-01|07:14:23 - COMISSAO - R$1 - Appbet
+2022-03-01|07:47:12 - ENTRADA - R$10 - Appbet
+2022-03-01|07:47:12 - COMISSAO - R$1 - Appbet
+2022-03-01|07:47:49 - ENTRADA - R$10 - João Carlos
+2022-03-01|07:47:49 - COMISSAO - R$0.4 - João Carlos
+2022-03-01|07:48:16 - ENTRADA - R$10 - Appbet
+2022-03-01|07:48:16 - COMISSAO - R$1 - Appbet

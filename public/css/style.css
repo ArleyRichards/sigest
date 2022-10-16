@@ -1,0 +1,52 @@
+#side-item:hover{
+    border: solid 1px #fff;
+}
+
+.nav-ativo{    
+    background: linear-gradient(to right,#AD2E0B, #F15025);
+}
+.nav-ativo:hover{    
+    background: linear-gradient(to left,#AD2E0B, #F15025);
+}
+
+.link-inativo{
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    transition: color .15s;
+    color: #AD2E0B;
+}
+
+.nav-inativo a{
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    transition: color .15s;
+    color: #AD2E0B;
+}
+
+.nav-inativo{
+    background-color: #FFF;
+    border: solid 1px #F15025;   
+}
+
+#botao-salvar{
+    color: #fff;
+    background-color: #F15025;
+}
+
+#botao-editar{
+    color: #fff;
+    background-color: #F15025;
+}
+
+#botao-atualizar{
+    color: #fff;
+    background-color: #F15025;
+}
+
+.btn-laranja{
+    color: #fff;
+    background-color: #F15025;
+}
+  

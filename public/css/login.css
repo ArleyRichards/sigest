@@ -1,0 +1,13 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{   
+    min-height: 700px;
+       
+    background: linear-gradient(30deg, #191919, #F15025);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
