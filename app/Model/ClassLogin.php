@@ -9,11 +9,11 @@ class ClassLogin extends ClassConexao{
     private $Db;
 
     #Retorna o Usuário e senha
-public function selecionaUsuario($login, $senha)
+public function selecionaUsuario($email, $senha)
 {
     $Array = [];
-    $BFetch=$this->Db=$this->conexaoDB()->prepare("SELECT * FROM usuarios WHERE login = :login AND senha = :senha");
-    $BFetch->bindParam(":login",$login, PDO::PARAM_STR);
+    $BFetch=$this->Db=$this->conexaoDB()->prepare("SELECT * FROM usuarios WHERE email = :email AND senha = :senha");
+    $BFetch->bindParam(":email",$email, PDO::PARAM_STR);
     $BFetch->bindParam(":senha",$senha, PDO::PARAM_STR);
     $BFetch->execute();
 
@@ -21,11 +21,8 @@ public function selecionaUsuario($login, $senha)
     
     while($Fetch=$BFetch->fetch(PDO::FETCH_ASSOC)){
         $Array[$I]=[
-            'id'=>$Fetch['id'],
-            'login'=>$Fetch['login'],
-            'nome'=>$Fetch['nome'],            
-            'nivel'=>$Fetch['nivel']                 
-        ];
+            'id'=>$Fetch['id'],            
+            ];
         $I++;
     }
     //$Fetch=$BFetch->fetchAll();

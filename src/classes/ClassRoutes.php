@@ -16,34 +16,11 @@ class ClassRoutes{
         $I=$Url[0];
 
         $this->Rota=array(
-            ""=>"ControllerIndex",
+            ""=>"ControllerLogin",
             "login"=>"ControllerLogin",
-            "loginAjax"=>"ControllerLoginAjax",
-            "dashboard"=>"ControllerDashboard",
-            "caixa"=>"ControllerCaixa",    
-            "caixaAjax"=>"ControllerCaixaAjax", 
-            "chamado"=>"ControllerChamado",
-            "chamadoAjax"=>"ControllerChamadoAjax",
-            "tecnico"=>"ControllerTecnico",
-            "tecnicoAjax"=>"ControllerTecnicoAjax",
-            "gerente"=>"ControllerGerente",
-            "gerenteAjax"=>"ControllerGerenteAjax",
-            "cliente" => "ControllerCliente",
-            "clienteAjax" => "ControllerClienteAjax",
-            "integrador" => "ControllerIntegrador",
-            "integradorAjax" => "ControllerIntegradorAjax",
-            "peca" => "ControllerPeca",
-            "peca-excell" => "ControllerPecaExcell",
-            "view-tecnico"=>"ControllerViewTecnico",
-            "view-chamado"=>"ControllerViewChamado",
-            "view-cliente"=>"ControllerViewCliente",
-            "imprimir"=>"ControllerImprimir",
-            "excell"=>"ControllerExcell",
-            "cliente-excell"=>"ControllerClienteExcell",
-            "tecnico-excell"=>"ControllerTecnicoExcell",
-            "financeiro-painel"=>"ControllerFinanceiroPainel",
-            "relatorio"=>"ControllerRelatorio",
-            "logout"=>"ControllerLogout",
+            "registro"=>"ControllerRegistro",
+            "logout"=>"ControllerLogout",            
+            "dashboard"=>"ControllerDashboard"
         );
 
         if(array_key_exists($I,$this->Rota)){

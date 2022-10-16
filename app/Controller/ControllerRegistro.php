@@ -9,7 +9,7 @@ use Src\Interfaces\InterfaceView;
 use Src\Traits\TraitUrlParser;
 
 
-class ControllerLogin extends ClassRender implements InterfaceView
+class ControllerRegistro extends ClassRender implements InterfaceView
 {
 
     protected $email;
@@ -32,7 +32,7 @@ class ControllerLogin extends ClassRender implements InterfaceView
             $this->setTitle("Página de Login");
             $this->setDescription("SIGEST - Sistema de Gestão Escolar");
             $this->setKeywords("sigest, gestão, escolar, sistema");
-            $this->setDir("login");
+            $this->setDir("registro");
             $this->setData(['msg' => $this->msg]);
             $this->renderLayout();
         }
