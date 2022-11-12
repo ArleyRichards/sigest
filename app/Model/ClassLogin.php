@@ -21,7 +21,10 @@ public function selecionaUsuario($email, $senha)
     
     while($Fetch=$BFetch->fetch(PDO::FETCH_ASSOC)){
         $Array[$I]=[
-            'id'=>$Fetch['id'],            
+            'id'=>$Fetch['id'], 
+            'email'=>$Fetch['email'],
+            'nivel'=>$Fetch['nivel'],
+            'nome'=>$Fetch['nome']
             ];
         $I++;
     }

@@ -1,4 +1,4 @@
-<footer class="fixed-bottom p-3 bg-light">
+<footer class="sticky-footer mt-4 p-3 bg-light">
     <div class="text-center">
         &copy;SIGEST - Sistema de Gestão Escolar<br>
         <?= date("Y"); ?>

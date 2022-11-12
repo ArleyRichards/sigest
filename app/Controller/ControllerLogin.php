@@ -21,10 +21,10 @@ class ControllerLogin extends ClassRender implements InterfaceView
 
     public function __construct()
     {
-        
+
         if (count($this->parseUrl()) == 1) {
-            if(isset($_GET['msg'])){
-                if($_GET['msg'] == 'error'){
+            if (isset($_GET['msg'])) {
+                if ($_GET['msg'] == 'error') {
                     $this->msg = 'Usuário ou senha inválidos';
                 }
             }
@@ -58,16 +58,25 @@ class ControllerLogin extends ClassRender implements InterfaceView
         if ($dados == null) {
             $result = '<small class="text-danger">Verifique seus dados</small>';
             header('Location:' . DIRPAGE . 'login?msg=error');
-            $this->msg = "Erro";
+            $this->msg = "Usuário ou Senha inválidos";
         } else {
-            ob_start();
-            session_start();
-            $_SESSION['id'] = $dados[0]['id'];
-            $_SESSION['email'] = $dados[0]['login'];
-            $_SESSION['nome'] = $dados[0]['nome'];
-            $_SESSION['nivel'] = $dados[0]['nivel'];
-            $_SESSION['fk_regioes'] = $dados[0]['fk_regioes'];
-            header('Location:' . DIRPAGE . 'dashboard');
+
+            $nivel = $dados[0]['nivel'];
+            if ($nivel == 'ADMIN') {
+                ob_start();
+                session_start();
+                $_SESSION['id'] = $dados[0]['id'];
+                $_SESSION['email'] = $dados[0]['email'];
+                $_SESSION['nome'] = $dados[0]['nome'];
+                header('Location:' . DIRPAGE . 'admin');
+            }else{
+                ob_start();
+                session_start();
+                $_SESSION['id'] = $dados[0]['id'];
+                $_SESSION['email'] = $dados[0]['email'];
+                $_SESSION['nome'] = $dados[0]['nome'];
+                header('Location:' . DIRPAGE . 'dashboard');
+            }
         }
     }
 }

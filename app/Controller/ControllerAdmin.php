@@ -1,12 +1,11 @@
 <?php
 namespace App\Controller;
 
-use App\Model\ClassDashboard;
 use Src\Classes\ClassRender;
 use Src\Interfaces\InterfaceView;
 use Src\Traits\TraitUrlParser;
 
-class ControllerDashboard extends ClassDashboard{
+class ControllerAdmin extends ClassRender implements InterfaceView{
 
     use TraitUrlParser;
 
@@ -18,7 +17,7 @@ class ControllerDashboard extends ClassDashboard{
             $Render->setTitle("Dashboard");
             $Render->setDescription("Painel Principal do Sistema");
             $Render->setKeywords("dashboard, painel principal, sistema");
-            $Render->setDir("dashboard");
+            $Render->setDir("admin/dashboard");
             $Render->renderLayout();            
         }else{
             header ('Location: login');

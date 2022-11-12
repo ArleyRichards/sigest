@@ -25,7 +25,8 @@ if (!isset($_SESSION)) {
     <!-- Fimo do Head -->
 </head>
 
-<body>
+<body  class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
     <!-- Início do Header -->
     <?php echo $this->addHeader(); ?>
     <!-- Fim do Header -->
@@ -39,7 +40,7 @@ if (!isset($_SESSION)) {
     <script src="<?= DIRASSETS.'plugins/toaStr/toastr.min.js'?>" crossorigin="anonymous"></script>
     <script>        
         toastr.options = {
-            "closeButton": false,
+            "closeButton": true,
             "debug": false,
             "newestOnTop": false,
             "progressBar": true,
@@ -59,6 +60,7 @@ if (!isset($_SESSION)) {
     <!-- Início do Footer -->
     <?php echo $this->addFooter(); ?>
     <!-- Fim do Footer -->
+    </div>
 </body>
 
 </html>
