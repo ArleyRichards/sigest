@@ -8,42 +8,33 @@ use PDO;
 use PDOException;
 use Throwable;
 
-class ClassInstituicao extends ClassConexao
+class ClassGestor extends ClassConexao
 {
     private $Db;
 
-    #LISTAGEM DE INSTITUIÇÕES TOTAIS
+    #LISTAGEM DE GESTORES TOTAIS
     public function all()
     {
         $Array = null;
-        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM escolas");
+        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM usuarios WHERE nivel ='GESTOR'");
         $BFetch->execute();
 
         $I = 0;
         while ($Fetch = $BFetch->fetch(PDO::FETCH_ASSOC)) {
             $Array[$I] = [
                 'id' => $Fetch['id'],
-                'razao_social' => $Fetch['razao_social'],                
-                'nome_fantasia' => $Fetch['nome_fantasia'], 
-                'cnpj' => $Fetch['cnpj'], 
-                'inscricao_estadual' => $Fetch['inscricao_estadual'], 
-                'site' => $Fetch['site'],
-                'email' => $Fetch['email'],
-                'cep' => $Fetch['cep'],                                
-                'endereco' => $Fetch['endereco'],                                
-                'numero' => $Fetch['numero'],                                
-                'bairro' => $Fetch['bairro'],                
-                'cidade' => $Fetch['cidade'],                
-                'uf' => $Fetch['uf'],                                                
-                'telefone_1' => $Fetch['telefone_1'], 
-                'telefone_2' => $Fetch['telefone_2'], 
+                'nome' => $Fetch['nome'],                
+                'email' => $Fetch['email'], 
+                'nivel' => $Fetch['nivel'], 
+                'ativo' => $Fetch['ativo'],
+                'instituicao' => $Fetch['instituicao'],
             ];
             $I++;
         }
         return $Array;
     }  
 
-    #CADASTRA UMA NOVA INSTITUIÇÃO
+    #CADASTRA UM NOVO GESTOR
     public function create($razao, $fantasia, $cnpj, $inscricao, $regime, $site, $email, $uf, $cidade, $bairro, $logradouro, $numero, $cep, $telefone1, $telefone2)
     {
         $ativo = 1;
@@ -79,34 +70,23 @@ class ClassInstituicao extends ClassConexao
         return $data;
     }
     
-    #EXIBE OS DETALHES DA INSTITUIÇÃO
+    #EXIBE OS DETALHES DO GESTOR
     public function read($id)
     {
         $Array = null;
-        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM escolas WHERE id = '$id'");
-        /*$this->Db->bindParam(":pagina",$pagina,\PDO::PARAM_INT);
-            $this->Db->bindParam(":registro",$registro,\PDO::PARAM_INT);*/
+        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM usuarios WHERE id = '$id'");
         $BFetch->execute();
 
         $Fetch = $BFetch->fetchAll();
 
         return $Fetch;
-    }
+    } 
 
-    #VERIFICA SE JÁ HÁ UMA INSTITUIÇÃO CADASTRADA
-    protected function consultaRazao($razao){
-        $Array = null;
-        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM escolas WHERE razao_social = '$razao'");        
-        $BFetch->execute();      
-
-        return $Array;
-    }    
-
-    #ATUALIZA OS DADOS DA INSTITUIÇÃO
-    public function update($id, $razao, $fantasia, $cnpj, $inscricao, $regime, $site, $email, $uf, $cidade, $bairro, $logradouro, $numero, $cep, $telefone1, $telefone2){
+    #ATUALIZA OS DADOS DO GESTOR
+    public function update($id, $nome, $email, $instituicao, $nivel){
         try {
             $msg = null;
-            $BFetch = $this->Db = $this->conexaoDB()->prepare("UPDATE escolas SET razao_social = '$razao', nome_fantasia = '$fantasia', cnpj = '$cnpj', inscricao_estadual = '$inscricao', regime = '$regime', site = '$site', email = '$email', telefone_1 = '$telefone1', telefone_2 = '$telefone2', cidade = '$cidade', uf = '$uf', endereco = '$logradouro', numero = '$numero' , bairro = '$bairro', cep = '$cep' WHERE id = :id");
+            $BFetch = $this->Db = $this->conexaoDB()->prepare("UPDATE usuarios SET nome = '$nome', email = '$email', instituicao = '$instituicao', nivel = '$nivel' WHERE id = :id");
             $this->Db->bindParam(":id", $id, PDO::PARAM_INT);
 
             if ($BFetch->execute()) {
@@ -122,7 +102,17 @@ class ClassInstituicao extends ClassConexao
         }
     }  
 
+    #MÉTODO DE APOIO
+    #EXIBE OS DETALHES DA INSTITUIÇÃO
+    public function readInstituicao($id)
+    {
+        $Array = null;
+        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM escolas WHERE id = '$id'");
+        $BFetch->execute();
 
+        $Fetch = $BFetch->fetchAll();
 
-    
+        return $Fetch;
+    }   
+   
 }

@@ -22,7 +22,8 @@ class ClassRoutes{
             "logout"=>"ControllerLogout",            
             "dashboard"=>"ControllerDashboard",
             "admin"=>"ControllerAdmin",
-            "instituicao"=>"ControllerInstituicao"
+            "instituicao"=>"ControllerInstituicao",
+            "gestor"=>"ControllerGestor",
         );
 
         if(array_key_exists($I,$this->Rota)){
