@@ -61,22 +61,16 @@ class ControllerLogin extends ClassRender implements InterfaceView
             $this->msg = "Usuário ou Senha inválidos";
         } else {
 
-            $nivel = $dados[0]['nivel'];
-            if ($nivel == 'ADMIN') {
-                ob_start();
-                session_start();
-                $_SESSION['id'] = $dados[0]['id'];
-                $_SESSION['email'] = $dados[0]['email'];
-                $_SESSION['nome'] = $dados[0]['nome'];
-                header('Location:' . DIRPAGE . 'admin');
-            }else{
-                ob_start();
-                session_start();
-                $_SESSION['id'] = $dados[0]['id'];
-                $_SESSION['email'] = $dados[0]['email'];
-                $_SESSION['nome'] = $dados[0]['nome'];
-                header('Location:' . DIRPAGE . 'dashboard');
-            }
+            $nivel = $dados[0]['nivel'];            
+            ob_start();
+            session_start();
+            $_SESSION['id'] = $dados[0]['id'];
+            $_SESSION['email'] = $dados[0]['email'];
+            $_SESSION['nome'] = $dados[0]['nome'];
+            $_SESSION['nivel'] = $dados[0]['nivel'];
+            $_SESSION['id_instituicao'] = $dados[0]['instituicao'];
+            header('Location:' . DIRPAGE . 'dashboard');
+            
         }
     }
 }

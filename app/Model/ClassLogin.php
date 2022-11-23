@@ -24,7 +24,8 @@ public function selecionaUsuario($email, $senha)
             'id'=>$Fetch['id'], 
             'email'=>$Fetch['email'],
             'nivel'=>$Fetch['nivel'],
-            'nome'=>$Fetch['nome']
+            'nome'=>$Fetch['nome'],
+            'instituicao'=>$Fetch['instituicao']
             ];
         $I++;
     }
