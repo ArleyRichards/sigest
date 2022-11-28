@@ -43,7 +43,7 @@
            </a>
          </li>
          <li class="nav-item">
-           <a href="<?= DIRPAGE . 'docente' ?>" class="nav-link">
+           <a href="<?= DIRPAGE . 'docente' ?>" class="nav-link  active">
              <i class="nav-icon fas fa-user-tie"></i>
              <p>
                Docentes
@@ -51,7 +51,7 @@
            </a>
          </li>
          <li class="nav-item">
-           <a href="<?= DIRPAGE . 'discente' ?>" class="nav-link active">
+           <a href="<?= DIRPAGE . 'discente' ?>" class="nav-link">
              <i class="nav-icon fas fa-graduation-cap"></i>
              <p>
                Discentes
@@ -86,7 +86,7 @@
            <nav aria-label="breadcrumb">
              <ol class="breadcrumb float-sm-right">
                <li class="breadcrumb-item"><a href="<?= DIRPAGE . 'admin' ?>">Painel Gestor</a></li>
-               <li class="breadcrumb-item"><a href="<?= DIRPAGE . 'discente' ?>">Discentes</a></li>
+               <li class="breadcrumb-item"><a href="<?= DIRPAGE . 'docente' ?>">Docentes</a></li>
                <li class="breadcrumb-item active" aria-current="page">Edição</li>
              </ol>
            </nav>
@@ -97,8 +97,8 @@
    <!-- /.content-header -->
 
    <?php
-    $rowDiscente = $this->getData()['discente'][0];
-    //var_dump($rowDiscente);
+    $rowDocente = $this->getData()['docente'][0];
+    //var_dump($rowDocente);
    ?>
 
    <!-- Main content -->
@@ -114,48 +114,44 @@
              <div class="card-body">
                <form action="../atualizar" method="post">
                   <input type="hidden" name="id_instituicao" value="<?= $_SESSION['id_instituicao']?>"> 
-                  <input type="hidden" name="id_discente" value="<?= $rowDiscente['id']?>"> 
+                  <input type="hidden" name="id_docente" value="<?=$rowDocente['id']?>"> 
                  <div class="form-group mb-3">
                    <label for="campo-nome">Nome <span class="text-danger"> *</span></label>
-                   <input type="text" name="nome" id="campo-nome" class="form-control" maxlength="255" value="<?=$rowDiscente['nome']?>" required>
+                   <input type="text" name="nome" id="campo-nome" class="form-control" maxlength="255" value="<?=$rowDocente['nome']?>" required>
                  </div>
                  <div class="form-group mb-3">
-                   <label for="campo-nome-mae">Nome da Mãe <span class="text-danger"> *</span></label>
-                   <input type="text" name="nome-mae" id="campo-nome-mae" class="form-control" maxlength="255" value="<?=$rowDiscente['nome_mae']?>" required>
-                 </div>
-                 <div class="form-group mb-3">
-                   <label for="campo-nome-pai">Nome do Pai</label>
-                   <input type="text" name="nome-pai" id="campo-nome-pai" class="form-control" value="<?=$rowDiscente['nome_pai']?>" maxlength="255">
+                   <label for="campo-formacao">Formação <span class="text-danger"> *</span></label>
+                   <input type="text" name="formacao" id="campo-formacao" class="form-control" maxlength="255" value="<?=$rowDocente['formacao']?>" required>
                  </div>
                  <div class="row">
                    <div class="form-group mb-3 col-12 col-lg-4">
                      <label for="campo-nascimento">Data de Nascimento<span class="text-danger"> *</span></label>
-                     <input type="date" name="nascimento" id="campo-nascimento" class="form-control" value="<?=$rowDiscente['nascimento']?>">
+                     <input type="date" name="nascimento" id="campo-nascimento" class="form-control" value="<?=$rowDocente['nascimento']?>">
                    </div>
                    <div class="form-group mb-3 col-12 col-lg-4">
                      <label for="campo-cpf">CPF<span class="text-danger"> *</span></label>
-                     <input type="text" name="cpf" id="campo-cpf" maxlength="20" class="form-control" value="<?=$rowDiscente['cpf']?>">
+                     <input type="text" name="cpf" id="campo-cpf" maxlength="20" class="form-control" value="<?=$rowDocente['cpf']?>">
                    </div>
                    <div class="form-group mb-3 col-12 col-lg-4">
                      <label for="campo-rg">RG<span class="text-danger"> *</span></label>
-                     <input type="text" name="rg" id="campo-rg" maxlength="20" class="form-control" value="<?=$rowDiscente['rg']?>">
+                     <input type="text" name="rg" id="campo-rg" maxlength="20" class="form-control" value="<?=$rowDocente['rg']?>">
                    </div>
                  </div>                 
                  <div class="row">
                    <div class="form-group mb-3 col-12 col-lg-6">
                      <label for="campo-email">Email<span class="text-danger"> *</span></label>
-                     <input type="email" name="email" id="campo-email" class="form-control" value="<?=$rowDiscente['email']?>" required>
+                     <input type="email" name="email" id="campo-email" class="form-control" value="<?=$rowDocente['email']?>" required>
                    </div>
                    <div class="form-group mb-3 col-12 col-lg-6">
                      <label for="campo-telefone">Telefone<span class="text-danger"> *</span></label>
-                     <input type="tel" name="telefone" id="campo-telefone" class="form-control" value="<?=$rowDiscente['telefone']?>">
+                     <input type="tel" name="telefone" id="campo-telefone" class="form-control" value="<?=$rowDocente['telefone']?>">
                    </div>
                  </div>
                  <div class="row">
                    <div class="form-group col-12 col-lg-6">
                      <label>Necessidades Especiais<span class="text-danger"> *</span></label>
                      <select id="select-pcd" name="pcd" class="form-control">
-                       <option selected value="<?=$rowDiscente['pcd']?>"><?=$rowDiscente['pcd']?></option>
+                       <option selected value="<?=$rowDocente['pcd']?>"><?=$rowDocente['pcd']?></option>
                        <option value="NENHUM">NENHUM</option>
                        <option value="DEFICIENCIA INTELECTUAL">DEFICIENCIA INTELECTUAL</option>
                        <option value="DEFICIENCIA FISICA">DEFICIENCIA FISICA</option>

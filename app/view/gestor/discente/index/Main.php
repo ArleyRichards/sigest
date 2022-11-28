@@ -121,10 +121,10 @@
                  <tbody>
                    <?php
                     
-                    foreach ($rowDiscente as $key => $discente) {
+                    foreach ($rowDiscente as $key => $docente) {
                       echo '<tr>';
-                      echo '<td><a href="'.DIRPAGE.'discente/detalhes/'.$discente['id'].'" style="cursor: pointer" class="list-group-item-action">' . $discente['id'] . '</a></td>';
-                      echo '<td><a href="'.DIRPAGE.'discente/detalhes/'.$discente['id'].'" style="cursor: pointer" class="list-group-item-action">' . $discente['nome'] . '</a></td>';                      
+                      echo '<td><a href="'.DIRPAGE.'discente/detalhes/'.$docente['id'].'" style="cursor: pointer" class="list-group-item-action">' . $docente['id'] . '</a></td>';
+                      echo '<td><a href="'.DIRPAGE.'discente/detalhes/'.$docente['id'].'" style="cursor: pointer" class="list-group-item-action">' . $docente['nome'] . '</a></td>';                      
                       echo '</tr>';
                     }
                     ?>

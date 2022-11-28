@@ -43,7 +43,7 @@
            </a>
          </li>
          <li class="nav-item">
-           <a href="<?= DIRPAGE . 'docente' ?>" class="nav-link">
+           <a href="<?= DIRPAGE . 'docente' ?>" class="nav-link active">
              <i class="nav-icon fas fa-user-tie"></i>
              <p>
                Docentes
@@ -51,7 +51,7 @@
            </a>
          </li>
          <li class="nav-item">
-           <a href="<?= DIRPAGE . 'discente' ?>" class="nav-link active">
+           <a href="<?= DIRPAGE . 'discente' ?>" class="nav-link">
              <i class="nav-icon fas fa-graduation-cap"></i>
              <p>
                Discentes
@@ -86,7 +86,7 @@
            <nav aria-label="breadcrumb">
              <ol class="breadcrumb float-sm-right">
                <li class="breadcrumb-item"><a href="<?= DIRPAGE . 'admin' ?>">Painel Admin</a></li>
-               <li class="breadcrumb-item"><a href="<?= DIRPAGE . 'discente' ?>">Discentes</a></li>
+               <li class="breadcrumb-item"><a href="<?= DIRPAGE . 'docente' ?>">Docentes</a></li>
                <li class="breadcrumb-item active" aria-current="page">Detalhes</li>
              </ol>
            </nav>
@@ -105,12 +105,12 @@
            <div class="card card-primary card-outline">
              <div class="card-body box-profile">
                <div class="text-center">
-                 <img class="profile-user-img img-fluid img-circle" src="https://img.icons8.com/external-xnimrodx-lineal-color-xnimrodx/64/null/external-graduate-education-xnimrodx-lineal-color-xnimrodx.png" alt="User profile picture">
-               
+                   <img class="profile-user-img img-fluid img-circle" src="https://img.icons8.com/external-flaticons-flat-flat-icons/64/null/external-professor-professions-woman-diversity-flaticons-flat-flat-icons.png"/>
+                 <!--<img class="profile-user-img img-fluid img-circle" src="https://img.icons8.com/external-xnimrodx-lineal-color-xnimrodx/64/null/external-graduate-education-xnimrodx-lineal-color-xnimrodx.png" alt="User profile picture">               -->
                </div>
 
                <?php
-                $docente = $this->getData()['discente'][0];
+                $docente = $this->getData()['docente'][0];
                 $instituicao = $this->getData()['instituicao'][0];
                 //var_dump($this->getData());
                ?>
@@ -119,7 +119,7 @@
                <p class="text-center mb-0">Matrícula: <strong><?=$docente['id']?></strong></p>
                <p class="text-muted text-center mt-0">[<?=$docente['id_instituicao'].'] - '.$instituicao['nome_fantasia']?></p>
 
-               <a href="<?=DIRPAGE.'discente/edicao/'.$docente['id']?>" class="btn btn-primary btn-block"><b>Editar</b></a>
+               <a href="<?=DIRPAGE.'docente/edicao/'.$docente['id']?>" class="btn btn-primary btn-block"><b>Editar</b></a>
              </div>
              <!-- /.card-body -->
            </div>

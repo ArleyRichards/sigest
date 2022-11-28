@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
-use App\Model\ClassDiscente;
+use App\Model\ClassDocente;
 use App\Model\ClassInstituicao;
 use Src\Classes\ClassRender;
 use Src\Interfaces\InterfaceView;
 use Src\Traits\TraitUrlParser;
 
-class ControllerDiscente extends ClassRender implements InterfaceView
+class ControllerDocente extends ClassRender implements InterfaceView
 {
 
     use TraitUrlParser;
@@ -29,20 +29,20 @@ class ControllerDiscente extends ClassRender implements InterfaceView
         if (isset($_SESSION['id'])) {
             if (isset($_GET['msg'])) {
                 if ($_GET['msg'] == 'create_success') {
-                    $this->msg = 'Discente cadastrado com sucesso!';
+                    $this->msg = 'Docente cadastrado com sucesso!';
                 } else if ($_GET['msg'] == 'update_success') {
                     $this->msg = 'Dados atualizados com sucesso!';
                 }
             }
 
-            $Discente = new ClassDiscente();
+            $Docente = new ClassDocente();
             $Instituicao = $_SESSION['id_instituicao'];
 
-            $this->setTitle("Discentes");
-            $this->setDescription("Painel Discentes");
+            $this->setTitle("Docentes");
+            $this->setDescription("Painel Docentes");
             $this->setKeywords("dashboard, painel principal, sistema");
-            $this->setDir("gestor/discente/index");
-            $this->setData(['msg' => $this->msg, 'discente' => $Discente->all($Instituicao)]);
+            $this->setDir("gestor/docente/index");
+            $this->setData(['msg' => $this->msg, 'docente' => $Docente->all($Instituicao)]);
             $this->renderLayout();
         } else {
             header('Location: login');
@@ -61,14 +61,13 @@ class ControllerDiscente extends ClassRender implements InterfaceView
                     $this->msg = 'Preencha todos os campos obrigatórios';
                 }
             }
-            if (isset($_SESSION['id'])) {
-                $Render = new ClassRender();
-                $Render->setTitle("Discentes");
-                $Render->setDescription("Painel Discentes");
-                $Render->setKeywords("dashboard, painel principal, sistema");
-                $Render->setDir("gestor/discente/cadastro");
-                $Render->setData(['msg' => $this->msg]);
-                $Render->renderLayout();
+            if (isset($_SESSION['id'])) {                
+                $this->setTitle("Docentes");
+                $this->setDescription("Painel Docentes");
+                $this->setKeywords("dashboard, painel principal, sistema");
+                $this->setDir("gestor/docente/cadastro");
+                $this->setData(['msg' => $this->msg]);
+                $this->renderLayout();
             } else {
                 header('Location: login');
             }
@@ -89,17 +88,17 @@ class ControllerDiscente extends ClassRender implements InterfaceView
                     }
                 }
                 if (isset($_SESSION['id'])) {
-                    $Discente = new ClassDiscente();
+                    $Docente = new ClassDocente();
                     $Instituicao = new ClassInstituicao();
 
-                    $rowDiscente = $Discente->read($id);
-                    $rowInstituicao = $Instituicao->read($rowDiscente[0]['id_instituicao']);
+                    $rowDocente = $Docente->read($id);
+                    $rowInstituicao = $Instituicao->read($rowDocente[0]['id_instituicao']);
 
-                    $this->setTitle("Discente");
-                    $this->setDescription("Painel Discente");
+                    $this->setTitle("Docente");
+                    $this->setDescription("Painel Docente");
                     $this->setKeywords("dashboard, painel principal, sistema");
-                    $this->setDir("gestor/discente/detalhes");
-                    $this->setData(['msg' => $this->msg, 'discente' => $rowDiscente, 'instituicao' => $rowInstituicao]);
+                    $this->setDir("gestor/docente/detalhes");
+                    $this->setData(['msg' => $this->msg, 'docente' => $rowDocente, 'instituicao' => $rowInstituicao]);
                     $this->renderLayout();
                 } else {
                     header('Location: ' . DIRPAGE . '/login');
@@ -126,13 +125,13 @@ class ControllerDiscente extends ClassRender implements InterfaceView
                     }
                 }
                 if (isset($_SESSION['id'])) {
-                    $Discente = new ClassDiscente();
-                    $rowDiscente = $Discente->read($id);
-                    $this->setTitle("Discentes");
-                    $this->setDescription("Painel Discentes");
+                    $Docente = new ClassDocente();
+                    $rowDocente = $Docente->read($id);
+                    $this->setTitle("Docentes");
+                    $this->setDescription("Painel Docentes");
                     $this->setKeywords("dashboard, painel principal, sistema");
-                    $this->setDir("gestor/discente/edicao");
-                    $this->setData(['msg' => $this->msg, 'discente' => $rowDiscente]);
+                    $this->setDir("gestor/docente/edicao");
+                    $this->setData(['msg' => $this->msg, 'docente' => $rowDocente]);
                     $this->renderLayout();
                 } else {
                     header('Location: ' . DIRPAGE . '/login');
@@ -148,8 +147,7 @@ class ControllerDiscente extends ClassRender implements InterfaceView
 
     public function salvar()
     {
-        $Discente = new ClassDiscente();
-        $nomePai = $_POST['nome-pai'];
+        $Docente = new ClassDocente();        
         $pcd = $_POST['pcd'];
         $instituicao = $_POST['id_instituicao'];
 
@@ -157,8 +155,8 @@ class ControllerDiscente extends ClassRender implements InterfaceView
             if (isset($_POST['nome']) && $_POST['nome'] != '') {
                 $nome = $_POST['nome'];
 
-                if (isset($_POST['nome-mae']) && $_POST['nome-mae'] != '') {
-                    $nomeMae = $_POST['nome-mae'];
+                if (isset($_POST['formacao']) && $_POST['formacao'] != '') {
+                    $formacao = $_POST['formacao'];
 
                     if (isset($_POST['cpf']) && $_POST['cpf'] != '') {
                         $cpf = $_POST['cpf'];
@@ -175,51 +173,50 @@ class ControllerDiscente extends ClassRender implements InterfaceView
                                     if (isset($_POST['telefone']) && $_POST['telefone'] != '') {
                                         $telefone = $_POST['telefone'];
 
-                                        $result = $Discente->create($nome, $nomeMae, $nomePai, $nascimento, $cpf, $rg, $email, $telefone, $pcd, $instituicao);
+                                        $result = $Docente->create($nome, $formacao, $nascimento, $cpf, $rg, $email, $telefone, $pcd, $instituicao);
 
                                         if ($result == null) {
-                                            header('Location:' . DIRPAGE . 'discente/cadastro?msg=error');
+                                            header('Location:' . DIRPAGE . 'docente/cadastro?msg=error');
                                         } else {
-                                            header('Location:' . DIRPAGE . 'discente?msg=create_success');
+                                            header('Location:' . DIRPAGE . 'docente?msg=create_success');
                                         }
                                     } else {
-                                        header('Location:' . DIRPAGE . 'discente/cadastro?msg=incomplete_fields');
+                                        header('Location:' . DIRPAGE . 'docente/cadastro?msg=incomplete_fields');
                                     }
                                 } else {
-                                    header('Location:' . DIRPAGE . 'discente/cadastro?msg=incomplete_fields');
+                                    header('Location:' . DIRPAGE . 'docente/cadastro?msg=incomplete_fields');
                                 }
                             } else {
-                                header('Location:' . DIRPAGE . 'discente/cadastro?msg=incomplete_fields');
+                                header('Location:' . DIRPAGE . 'docente/cadastro?msg=incomplete_fields');
                             }
                         } else {
-                            header('Location:' . DIRPAGE . 'discente/cadastro?msg=incomplete_fields');
+                            header('Location:' . DIRPAGE . 'docente/cadastro?msg=incomplete_fields');
                         }
                     } else {
-                        header('Location:' . DIRPAGE . 'discente/cadastro?msg=incomplete_fields');
+                        header('Location:' . DIRPAGE . 'docente/cadastro?msg=incomplete_fields');
                     }
                 } else {
-                    header('Location:' . DIRPAGE . 'discente/cadastro?msg=incomplete_fields');
+                    header('Location:' . DIRPAGE . 'docente/cadastro?msg=incomplete_fields');
                 }
             } else {
-                header('Location:' . DIRPAGE . 'discente/cadastro?msg=incomplete_fields');
+                header('Location:' . DIRPAGE . 'docente/cadastro?msg=incomplete_fields');
             }
         }
     }
 
     public function atualizar()
     {
-        $Discente = new ClassDiscente();
-        $nomePai = $_POST['nome-pai'];
+        $Docente = new ClassDocente();        
         $pcd = $_POST['pcd'];
         $instituicao = $_POST['id_instituicao'];
-        $id = $_POST['id_discente'];
+        $id = $_POST['id_docente'];
 
         if (isset($_POST)) {
             if (isset($_POST['nome']) && $_POST['nome'] != '') {
                 $nome = $_POST['nome'];
 
-                if (isset($_POST['nome-mae']) && $_POST['nome-mae'] != '') {
-                    $nomeMae = $_POST['nome-mae'];
+                if (isset($_POST['formacao']) && $_POST['formacao'] != '') {
+                    $formacao = $_POST['formacao'];
 
                     if (isset($_POST['cpf']) && $_POST['cpf'] != '') {
                         $cpf = $_POST['cpf'];
@@ -236,33 +233,33 @@ class ControllerDiscente extends ClassRender implements InterfaceView
                                     if (isset($_POST['telefone']) && $_POST['telefone'] != '') {
                                         $telefone = $_POST['telefone'];
 
-                                        $result = $Discente->update($id, $nome, $nomeMae, $nomePai, $nascimento, $cpf, $rg, $email, $telefone, $pcd, $instituicao);
+                                        $result = $Docente->update($id, $nome, $formacao, $nascimento, $cpf, $rg, $email, $telefone, $pcd, $instituicao);
                                         
                                         if ($result == null) {
-                                            header('Location:' . DIRPAGE . 'discente/edicao?msg=error');
+                                            header('Location:' . DIRPAGE . 'docente/edicao?msg=error');
                                         } else {
-                                            header('Location:' . DIRPAGE . 'discente?msg=update_success');
+                                            header('Location:' . DIRPAGE . 'docente?msg=update_success');
                                         }
                                     } else {
-                                        header('Location:' . DIRPAGE . 'discente/cadastro?msg=incomplete_fields');
+                                        header('Location:' . DIRPAGE . 'docente/cadastro?msg=incomplete_fields');
                                     }
                                 } else {
-                                    header('Location:' . DIRPAGE . 'discente/cadastro?msg=incomplete_fields');
+                                    header('Location:' . DIRPAGE . 'docente/cadastro?msg=incomplete_fields');
                                 }
                             } else {
-                                header('Location:' . DIRPAGE . 'discente/cadastro?msg=incomplete_fields');
+                                header('Location:' . DIRPAGE . 'docente/cadastro?msg=incomplete_fields');
                             }
                         } else {
-                            header('Location:' . DIRPAGE . 'discente/cadastro?msg=incomplete_fields');
+                            header('Location:' . DIRPAGE . 'docente/cadastro?msg=incomplete_fields');
                         }
                     } else {
-                        header('Location:' . DIRPAGE . 'discente/cadastro?msg=incomplete_fields');
+                        header('Location:' . DIRPAGE . 'docente/cadastro?msg=incomplete_fields');
                     }
                 } else {
-                    header('Location:' . DIRPAGE . 'discente/cadastro?msg=incomplete_fields');
+                    header('Location:' . DIRPAGE . 'docente/cadastro?msg=incomplete_fields');
                 }
             } else {
-                header('Location:' . DIRPAGE . 'discente/cadastro?msg=incomplete_fields');
+                header('Location:' . DIRPAGE . 'docente/cadastro?msg=incomplete_fields');
             }
         }
     }
