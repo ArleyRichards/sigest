@@ -43,7 +43,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= DIRPAGE . 'docente' ?>" class="nav-link active">
+                    <a href="<?= DIRPAGE . 'docente' ?>" class="nav-link">
                         <i class="nav-icon fas fa-user-tie"></i>
                         <p>
                             Docentes
@@ -51,7 +51,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= DIRPAGE . 'discente' ?>" class="nav-link">
+                    <a href="<?= DIRPAGE . 'discente' ?>" class="nav-link ">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Discentes
@@ -59,7 +59,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= DIRPAGE . 'curso' ?>" class="nav-link">
+                    <a href="<?= DIRPAGE . 'curso' ?>" class="nav-link  active">
                         <i class="nav-icon fas fa-graduation-cap"></i>
                         <p>
                             Cursos
@@ -88,13 +88,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Docentes</h1>
+                    <h1 class="m-0">Cursos</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= DIRPAGE . 'admin' ?>">Painel Gestor</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Docentes</li>
+                            <li class="breadcrumb-item"><a href="<?= DIRPAGE . 'dashboard' ?>">Painel Gestor</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Cursos</li>
                         </ol>
                     </nav>
                 </div><!-- /.col -->
@@ -104,7 +104,7 @@
     <!-- /.content-header -->
 
     <?php
-    $rowDocente = $this->getData()['docente'];
+    $rowCurso = $this->getData()['curso'];
     ?>
 
     <!-- Main content -->
@@ -115,7 +115,7 @@
                     <div class="card">
                         <div class="card-header">
                             <!--<h3 class="card-title">Relação de Instituições Cadastradas</h3>-->
-                            <a href="docente/cadastro">Cadastro</a>
+                            <a href="curso/cadastro">Cadastro</a>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -123,16 +123,20 @@
                                 <thead>
                                     <tr>
                                         <th>Matrícula</th>
-                                        <th>Nome</th>
+                                        <th>Curso</th>
+                                        <th>Nível</th>
+                                        <th>CH</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    if ($rowDocente) {
-                                        foreach ($rowDocente as $key => $docente) {
+                                    if ($rowCurso) {
+                                        foreach ($rowCurso as $key => $curso) {
                                             echo '<tr>';
-                                            echo '<td><a href="' . DIRPAGE . 'docente/detalhes/' . $docente['id'] . '" style="cursor: pointer" class="list-group-item-action">' . $docente['id'] . '</a></td>';
-                                            echo '<td><a href="' . DIRPAGE . 'docente/detalhes/' . $docente['id'] . '" style="cursor: pointer" class="list-group-item-action">' . $docente['nome'] . '</a></td>';
+                                            echo '<td><a href="' . DIRPAGE . 'curso/detalhes/' . $curso['id'] . '" style="cursor: pointer" class="list-group-item-action">' . $curso['id'] . '</a></td>';
+                                            echo '<td><a href="' . DIRPAGE . 'curso/detalhes/' . $curso['id'] . '" style="cursor: pointer" class="list-group-item-action">' . $curso['nome'] . '</a></td>';
+                                            echo '<td>' . $curso['nivel'] . '</td>';
+                                            echo '<td>' . number_format($curso['carga_horaria'], 0, ',', ' ') . '</td>';
                                             echo '</tr>';
                                         }
                                     }
@@ -141,7 +145,9 @@
                                 <tfoot>
                                     <tr>
                                         <th>Matrícula</th>
-                                        <th>Nome</th>
+                                        <th>Curso</th>
+                                        <th>Nível</th>
+                                        <th>CH</th>
                                     </tr>
                                 </tfoot>
                             </table>

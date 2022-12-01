@@ -43,7 +43,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= DIRPAGE . 'docente' ?>" class="nav-link active">
+                    <a href="<?= DIRPAGE . 'docente' ?>" class="nav-link">
                         <i class="nav-icon fas fa-user-tie"></i>
                         <p>
                             Docentes
@@ -51,7 +51,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= DIRPAGE . 'discente' ?>" class="nav-link">
+                    <a href="<?= DIRPAGE . 'discente' ?>" class="nav-link ">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Discentes
@@ -59,7 +59,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= DIRPAGE . 'curso' ?>" class="nav-link">
+                    <a href="<?= DIRPAGE . 'curso' ?>" class="nav-link  active">
                         <i class="nav-icon fas fa-graduation-cap"></i>
                         <p>
                             Cursos
@@ -88,13 +88,14 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Docentes</h1>
+                    <h1 class="m-0">Cadastrar Docente</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= DIRPAGE . 'admin' ?>">Painel Gestor</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Docentes</li>
+                            <li class="breadcrumb-item"><a href="<?= DIRPAGE . 'dashboard' ?>">Painel Gestor</a></li>
+                            <li class="breadcrumb-item"><a href="<?= DIRPAGE . 'curso' ?>">Cursos</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Cadastro</li>
                         </ol>
                     </nav>
                 </div><!-- /.col -->
@@ -102,10 +103,6 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
-    <?php
-    $rowDocente = $this->getData()['docente'];
-    ?>
 
     <!-- Main content -->
     <section class="content">
@@ -115,36 +112,43 @@
                     <div class="card">
                         <div class="card-header">
                             <!--<h3 class="card-title">Relação de Instituições Cadastradas</h3>-->
-                            <a href="docente/cadastro">Cadastro</a>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Matrícula</th>
-                                        <th>Nome</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    if ($rowDocente) {
-                                        foreach ($rowDocente as $key => $docente) {
-                                            echo '<tr>';
-                                            echo '<td><a href="' . DIRPAGE . 'docente/detalhes/' . $docente['id'] . '" style="cursor: pointer" class="list-group-item-action">' . $docente['id'] . '</a></td>';
-                                            echo '<td><a href="' . DIRPAGE . 'docente/detalhes/' . $docente['id'] . '" style="cursor: pointer" class="list-group-item-action">' . $docente['nome'] . '</a></td>';
-                                            echo '</tr>';
-                                        }
-                                    }
-                                    ?>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Matrícula</th>
-                                        <th>Nome</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                            <form action="salvar" method="post">
+                                <input type="hidden" name="id_instituicao" value="<?= $_SESSION['id_instituicao'] ?>"> 
+                                <div class="form-group mb-3">
+                                    <label for="campo-nome">Nome <span class="text-danger"> *</span></label>
+                                    <input type="text" name="nome" id="campo-nome" class="form-control" maxlength="255" required>
+                                </div>   
+                                <div class="row">
+                                    <div class="form-group mb-3 col-12 col-lg-6">
+                                        <label for="select-nivel">Nível <span class="text-danger"> *</span></label>
+                                        <select class="form-control" name="nivel">
+                                            <option value="" selected>Selecione</option>
+                                            <option value="Livre">Livre</option>
+                                            <option value="Fundamental">Fundamental</option>
+                                            <option value="Médio">Médio</option>
+                                            <option value="Técnico">Técnico</option>
+                                            <option value="Superior">Superior</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3 col-12 col-lg-6">
+                                        <label for="campo-ch">Carga Horária<span class="text-danger"> *</span></label>
+                                        <input type="text" name="ch" id="campo-ch" maxlength="20" class="form-control">
+                                    </div>
+                                </div>                 
+                                <div class="row">
+                                    <div class="form-group mb-3 col-12 col-lg-12">
+                                        <label for="campo-descricao">Descrição</label>
+                                        <textarea name="descricao" class="form-control" rows="7" maxlength="1000" resizable="false" style="resize: none"></textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-primary"> <i class="fas fa-save"></i> Salvar</button>
+                                </div>
+                            </form>
                         </div>
                         <!-- /.card-body -->
                     </div>

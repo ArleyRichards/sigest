@@ -51,7 +51,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= DIRPAGE . 'discente' ?>" class="nav-link active">
+                    <a href="<?= DIRPAGE . 'discente' ?>" class="nav-link ">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Discentes
@@ -59,7 +59,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= DIRPAGE . 'curso' ?>" class="nav-link">
+                    <a href="<?= DIRPAGE . 'curso' ?>" class="nav-link  active">
                         <i class="nav-icon fas fa-graduation-cap"></i>
                         <p>
                             Cursos
@@ -84,81 +84,118 @@
  <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
    <!-- Content Header (Page header) -->
-   <div class="content-header">
+   <section class="content-header">
      <div class="container-fluid">
        <div class="row mb-2">
          <div class="col-sm-6">
-           <h1 class="m-0">Discentes</h1>
-         </div><!-- /.col -->
+           <h1></h1>
+         </div>
          <div class="col-sm-6">
            <nav aria-label="breadcrumb">
              <ol class="breadcrumb float-sm-right">
-               <li class="breadcrumb-item"><a href="<?= DIRPAGE . 'admin' ?>">Painel Gestor</a></li>
-               <li class="breadcrumb-item active" aria-current="page">Discentes</li>
+               <li class="breadcrumb-item"><a href="<?= DIRPAGE . 'dashboard' ?>">Painel Gestor</a></li>
+               <li class="breadcrumb-item"><a href="<?= DIRPAGE . 'curso' ?>">Cursos</a></li>
+               <li class="breadcrumb-item active" aria-current="page">Detalhes</li>
              </ol>
            </nav>
-         </div><!-- /.col -->
-       </div><!-- /.row -->
+         </div>
+       </div>
      </div><!-- /.container-fluid -->
-   </div>
-   <!-- /.content-header -->
-
-   <?php
-    $rowDiscente = $this->getData()['discente'];    
-   ?>
+   </section>
 
    <!-- Main content -->
    <section class="content">
      <div class="container-fluid">
        <div class="row">
-         <div class="col-12">
-           <div class="card">
-             <div class="card-header">
-               <!--<h3 class="card-title">Relação de Instituições Cadastradas</h3>-->
-               <a href="discente/cadastro">Cadastro</a>
-             </div>
-             <!-- /.card-header -->
-             <div class="card-body">
-               <table id="example1" class="table table-bordered table-striped">
-                 <thead>
-                   <tr>
-                     <th>Matrícula</th>
-                     <th>Nome</th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <?php
-                    
-                    foreach ($rowDiscente as $key => $docente) {
-                      echo '<tr>';
-                      echo '<td><a href="'.DIRPAGE.'discente/detalhes/'.$docente['id'].'" style="cursor: pointer" class="list-group-item-action">' . $docente['id'] . '</a></td>';
-                      echo '<td><a href="'.DIRPAGE.'discente/detalhes/'.$docente['id'].'" style="cursor: pointer" class="list-group-item-action">' . $docente['nome'] . '</a></td>';                      
-                      echo '</tr>';
-                    }
-                    ?>
-                 </tbody>
-                 <tfoot>
-                   <tr>
-                     <th>Matrícula</th>
-                     <th>Nome</th>
-                   </tr>
-                 </tfoot>
-               </table>
+         <div class="col-md-4">
+
+           <!-- Profile Image -->
+           <div class="card card-primary card-outline">
+             <div class="card-body box-profile">
+               <div class="text-center">
+                   <img class="profile-user-img img-fluid img-circle" src="https://img.icons8.com/external-flaticons-flat-flat-icons/64/null/external-professor-professions-woman-diversity-flaticons-flat-flat-icons.png"/>
+                 <!--<img class="profile-user-img img-fluid img-circle" src="https://img.icons8.com/external-xnimrodx-lineal-color-xnimrodx/64/null/external-graduate-education-xnimrodx-lineal-color-xnimrodx.png" alt="User profile picture">               -->
+               </div>
+
+               <?php
+                $curso = $this->getData()['curso'][0];
+                $instituicao = $this->getData()['instituicao'][0];
+                //var_dump($this->getData());
+               ?>
+
+               <h3 class="profile-username text-center"><?=$curso['nome']?></h3>
+               <p class="text-center mb-0">COD: <strong><?=$curso['id']?></strong></p>
+               <p class="text-muted text-center mt-0">[<?=$curso['id_instituicao'].'] - '.$instituicao['nome_fantasia']?></p>
+
+               <a href="<?=DIRPAGE.'curso/edicao/'.$curso['id']?>" class="btn btn-primary btn-block"><b>Editar</b></a>
              </div>
              <!-- /.card-body -->
+           </div>
+           <!-- /.card -->
+
+           <!-- About Me Box 
+           <div class="card card-primary">
+             <div class="card-header">
+               <h3 class="card-title">Informações Gerais</h3>
+             </div>
+             <!-- /.card-header 
+             <div class="card-body">
+               <strong><i class="fas fa-phone mr-1"></i> Telefone</strong>
+
+               <p class="text-muted">
+                 <span class="tag tag-danger"><?$docente['telefone']?></span></br>                 
+               </p>
+               <hr>
+               <strong><i class="fas fa-at mr-1"></i> Email</strong>
+
+               <p class="text-muted"><?$docente['email']?></p>
+             </div>
+             <!-- /.card-body 
+           </div>
+           <!-- /.card -->
+         </div>
+         <!-- /.col -->
+         <div class="col-md-8">
+           <div class="card">
+             <div class="card-header p-2">
+               <ul class="nav nav-pills">
+                 <li class="nav-item"><a class="nav-link active" href="#overview" data-toggle="tab">Visão Geral</a></li>
+                 <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
+                 <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Outros</a></li>
+               </ul>
+             </div><!-- /.card-header -->
+             <div class="card-body">
+               <div class="tab-content">
+                 <div class="active tab-pane" id="overview">
+                     <p><?=$curso['descricao']?></p>
+                 </div>
+                 <!-- /.tab-pane -->
+                 <div class="tab-pane" id="timeline">
+                   
+                 </div>
+                 <!-- /.tab-pane -->
+
+                 <div class="tab-pane" id="settings">
+                   <form class="form-horizontal">
+                     
+                   </form>
+                 </div>
+                 <!-- /.tab-pane -->
+               </div>
+               <!-- /.tab-content -->
+             </div><!-- /.card-body -->
            </div>
            <!-- /.card -->
          </div>
          <!-- /.col -->
        </div>
        <!-- /.row -->
-     </div>
-     <!-- /.container-fluid -->
+     </div><!-- /.container-fluid -->
    </section>
    <!-- /.content -->
-
  </div>
  <!-- /.content-wrapper -->
+
  <footer class="main-footer">
    <strong>Copyright &copy; <?=date("Y")?> <a href="#">SIGEST - Sistema de Gestão Escolar</a>.</strong>
    All rights reserved.

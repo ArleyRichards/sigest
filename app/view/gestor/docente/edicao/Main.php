@@ -31,44 +31,52 @@
      </div>
 
      <!-- Sidebar Menu -->
-     <nav class="mt-2">
-       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-         <li class="nav-item">
-           <a href="<?= DIRPAGE . 'admin' ?>" class="nav-link">
-             <i class="nav-icon fas fa-tachometer-alt"></i>
-             <p>
-               Painel
-             </p>
-           </a>
-         </li>
-         <li class="nav-item">
-           <a href="<?= DIRPAGE . 'docente' ?>" class="nav-link  active">
-             <i class="nav-icon fas fa-user-tie"></i>
-             <p>
-               Docentes
-             </p>
-           </a>
-         </li>
-         <li class="nav-item">
-           <a href="<?= DIRPAGE . 'discente' ?>" class="nav-link">
-             <i class="nav-icon fas fa-graduation-cap"></i>
-             <p>
-               Discentes
-             </p>
-           </a>
-         </li>
-         <li class="nav-item">
-           <a href="<?= DIRPAGE . 'classe' ?>" class="nav-link">
-             <i class="nav-icon fas fa-chalkboard"></i>
-             <p>
-               Classes
-             </p>
-           </a>
-         </li>
-       </ul>
-     </nav>
-     <!-- /.sidebar-menu -->
+                <li class="nav-item">
+                    <a href="<?= DIRPAGE . 'dashboard' ?>" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Painel
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= DIRPAGE . 'docente' ?>" class="nav-link active">
+                        <i class="nav-icon fas fa-user-tie"></i>
+                        <p>
+                            Docentes
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= DIRPAGE . 'discente' ?>" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Discentes
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= DIRPAGE . 'curso' ?>" class="nav-link">
+                        <i class="nav-icon fas fa-graduation-cap"></i>
+                        <p>
+                            Cursos
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= DIRPAGE . 'turma' ?>" class="nav-link">
+                        <i class="nav-icon fas fa-chalkboard"></i>
+                        <p>
+                            Turmas
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
    </div>
    <!-- /.sidebar -->
  </aside>
