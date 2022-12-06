@@ -8,7 +8,7 @@ use PDO;
 use PDOException;
 use Throwable;
 
-class ClassCurso extends ClassConexao
+class ClassTurma extends ClassConexao
 {
     private $Db;
 
@@ -42,15 +42,19 @@ class ClassCurso extends ClassConexao
     public function all($instituicao)
     {
         $Array = null;
-        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM docentes WHERE id_instituicao = '$instituicao'");
+        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM turmas WHERE id_instituicao = '$instituicao'");
         $BFetch->execute();
 
         $I = 0;
         while ($Fetch = $BFetch->fetch(PDO::FETCH_ASSOC)) {
             $Array[$I] = [
                 'id' => $Fetch['id'],
-                'nome' => $Fetch['nome'],      
-                'id_instituicao' => $Fetch['id_instituicao'],
+                'codigo' => $Fetch['codigo'],      
+                'vagas' => $Fetch['vagas'],
+                'data_inicio' => $Fetch['data_inicio'],
+                'horario_inicio' => $Fetch['horario_inicio'],
+                'id_curso' =>  $Fetch['id_curso'],
+                'id_docente' =>  $Fetch['id_docente'],
             ];
             $I++;
         }
@@ -58,23 +62,23 @@ class ClassCurso extends ClassConexao
     }  
 
     #CADASTRA UM NOVO DISCENTE
-    public function create($nome, $formacao, $nascimento, $cpf, $rg, $email, $telefone, $pcd, $instituicao)
+    public function create($codigo, $id_curso, $vagas, $id_docente, $data_inicio, $data_fim, $horario_inicio, $horario_fim, $id_instituicao)
     {
         $ativo = 1;
         $data = null;
 
         try {
-            $this->Db = $this->conexaoDB()->prepare("INSERT INTO docentes (nome, formacao, nascimento, cpf, rg, email, telefone, pcd, id_instituicao, ativo)
-             values (:nome, :formacao, :nascimento, :cpf, :rg, :email, :telefone, :pcd, :id_instituicao, :ativo)");
-            $this->Db->bindParam(":nome", $nome, PDO::PARAM_STR);
-            $this->Db->bindParam(":formacao", $formacao, PDO::PARAM_STR);            
-            $this->Db->bindParam(":nascimento", $nascimento);
-            $this->Db->bindParam(":cpf", $cpf, PDO::PARAM_STR);
-            $this->Db->bindParam(":rg", $rg, PDO::PARAM_STR);
-            $this->Db->bindParam(":email", $email, PDO::PARAM_STR);            
-            $this->Db->bindParam(":telefone", $telefone, PDO::PARAM_STR);
-            $this->Db->bindParam(":pcd", $pcd, PDO::PARAM_STR);
-            $this->Db->bindParam(":id_instituicao", $instituicao, PDO::PARAM_INT);
+            $this->Db = $this->conexaoDB()->prepare("INSERT INTO turmas (codigo, id_curso, vagas, id_docente, data_inicio, data_fim, horario_inicio, horario_fim, id_instituicao, ativo)
+                                                                 values (:codigo, :id_curso, :vagas, :id_docente, :data_inicio, :data_fim, :horario_inicio, :horario_fim, :id_instituicao, :ativo)");
+            $this->Db->bindParam(":codigo", $codigo, PDO::PARAM_STR);
+            $this->Db->bindParam(":id_curso", $id_curso, PDO::PARAM_INT);            
+            $this->Db->bindParam(":vagas", $vagas, PDO::PARAM_INT);
+            $this->Db->bindParam(":id_docente", $id_docente, PDO::PARAM_INT);
+            $this->Db->bindParam(":data_inicio", $data_inicio);
+            $this->Db->bindParam(":data_fim", $data_fim);
+            $this->Db->bindParam(":horario_inicio", $horario_inicio);            
+            $this->Db->bindParam(":horario_fim", $horario_fim);            
+            $this->Db->bindParam(":id_instituicao", $id_instituicao, PDO::PARAM_INT);
             $this->Db->bindParam(":ativo", $ativo, PDO::PARAM_INT);
 
             if ($this->Db->execute()) {
@@ -92,7 +96,7 @@ class ClassCurso extends ClassConexao
     public function read($id)
     {
         $Array = null;
-        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM docentes WHERE id = '$id'");
+        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM turmas WHERE id = '$id'");
         $BFetch->execute();
 
         $Fetch = $BFetch->fetchAll();
@@ -101,10 +105,10 @@ class ClassCurso extends ClassConexao
     } 
 
     #ATUALIZA OS DADOS DO DISCENTE
-    public function update($id, $nome, $formacao, $nascimento, $cpf, $rg, $email, $telefone, $pcd, $instituicao){
+    public function update($id, $codigo, $curso, $vagas, $docente, $data_inicio, $data_fim, $horario_inicio, $horario_fim){
         try {
             $msg = null;
-            $BFetch = $this->Db = $this->conexaoDB()->prepare("UPDATE docentes SET nome = '$nome', formacao = '$formacao', nascimento = '$nascimento', cpf = '$cpf', rg = '$rg',  email = '$email', telefone = '$telefone', pcd = '$pcd', id_instituicao = '$instituicao' WHERE id = :id");
+            $BFetch = $this->Db = $this->conexaoDB()->prepare("UPDATE turmas SET codigo = '$codigo', id_curso = '$curso', vagas = '$vagas', id_docente = '$docente', data_inicio = '$data_inicio',  data_fim = '$data_fim', horario_inicio = '$horario_inicio', horario_fim = '$horario_fim' WHERE id = :id");
             $this->Db->bindParam(":id", $id, PDO::PARAM_INT);
 
             if ($BFetch->execute()) {

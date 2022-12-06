@@ -7,14 +7,13 @@ use Src\Classes\ClassRender;
 use Src\Interfaces\InterfaceView;
 use Src\Traits\TraitUrlParser;
 
-class ControllerInstituicao extends ClassRender implements InterfaceView
-{
+class ControllerInstituicao extends ClassRender implements InterfaceView {
 
     use TraitUrlParser;
+
     public $msg = '';
 
-    public function __construct()
-    {
+    public function __construct() {
         ob_start();
         session_start();
         if (count($this->parseUrl()) == 1) {
@@ -22,14 +21,13 @@ class ControllerInstituicao extends ClassRender implements InterfaceView
         }
     }
 
-    public function index()
-    {        
+    public function index() {
         //session_start();
         if (isset($_SESSION['id'])) {
             if (isset($_GET['msg'])) {
                 if ($_GET['msg'] == 'create_success') {
                     $this->msg = 'Instituição cadastrada com sucesso!';
-                }else if($_GET['msg'] == 'update_success'){
+                } else if ($_GET['msg'] == 'update_success') {
                     $this->msg = 'Dados atualizados com sucesso!';
                 }
             }
@@ -48,8 +46,7 @@ class ControllerInstituicao extends ClassRender implements InterfaceView
         }
     }
 
-    public function cadastro()
-    {
+    public function cadastro() {
         //session_start();
         $this->msg = null;
         if (count($this->parseUrl()) == 2) {
@@ -74,11 +71,10 @@ class ControllerInstituicao extends ClassRender implements InterfaceView
         }
     }
 
-    public function detalhes($id)
-    {
+    public function detalhes($id) {
         //session_start();
         $this->msg = null;
-        if ($id) {        
+        if ($id) {
             if (count($this->parseUrl()) == 3) {
                 if (isset($_GET['msg'])) {
                     if ($_GET['msg'] == 'error') {
@@ -98,23 +94,21 @@ class ControllerInstituicao extends ClassRender implements InterfaceView
                     $Render->setData(['msg' => $this->msg, 'instituicao' => $rowInstituicao]);
                     $Render->renderLayout();
                 } else {
-                    header('Location: '.DIRPAGE.'/login');
+                    header('Location: ' . DIRPAGE . '/login');
                 }
             } else {
 
                 $this->index();
-                
             }
-        }else{
+        } else {
             $this->index();
         }
     }
 
-    public function edicao($id)
-    {
+    public function edicao($id) {
         //session_start();
         $this->msg = null;
-        if ($id) {        
+        if ($id) {
             if (count($this->parseUrl()) == 3) {
                 if (isset($_GET['msg'])) {
                     if ($_GET['msg'] == 'error') {
@@ -134,20 +128,18 @@ class ControllerInstituicao extends ClassRender implements InterfaceView
                     $Render->setData(['msg' => $this->msg, 'instituicao' => $rowInstituicao]);
                     $Render->renderLayout();
                 } else {
-                    header('Location: '.DIRPAGE.'/login');
+                    header('Location: ' . DIRPAGE . '/login');
                 }
             } else {
 
                 $this->index();
-                
             }
-        }else{
+        } else {
             $this->index();
         }
     }
 
-    public function salvar()
-    {
+    public function salvar() {
         $Instituicao = new ClassInstituicao();
         $inscricao = $_POST['inscricao-estadual'];
         $site = $_POST['site'];
@@ -230,8 +222,7 @@ class ControllerInstituicao extends ClassRender implements InterfaceView
         }
     }
 
-    public function atualizar()
-    {        
+    public function atualizar() {
         $Instituicao = new ClassInstituicao();
         $inscricao = $_POST['inscricao-estadual'];
         $id = $_POST['id'];
@@ -273,14 +264,13 @@ class ControllerInstituicao extends ClassRender implements InterfaceView
                                                     if (isset($_POST['telefone']) && $_POST['telefone'] != '') {
                                                         $telefone1 = $_POST['telefone'];
 
-                                                        $result = $Instituicao->update($id, $razao, $fantasia, $cnpj, $inscricao, $regime, $site, $email, $uf, $cidade, $bairro, $logradouro, $numero, $cep, $telefone1, $telefone2);                                                        
-                                                        
+                                                        $result = $Instituicao->update($id, $razao, $fantasia, $cnpj, $inscricao, $regime, $site, $email, $uf, $cidade, $bairro, $logradouro, $numero, $cep, $telefone1, $telefone2);
+
                                                         if ($result == null) {
                                                             header('Location:' . DIRPAGE . 'instituicao/edicao?msg=error');
                                                         } else {
                                                             header('Location:' . DIRPAGE . 'instituicao?msg=update_success');
                                                         }
-                                                        
                                                     } else {
                                                         header('Location:' . DIRPAGE . 'instituicao/cadastro?msg=incomplete_fields');
                                                     }
@@ -316,4 +306,5 @@ class ControllerInstituicao extends ClassRender implements InterfaceView
             }
         }
     }
+
 }
