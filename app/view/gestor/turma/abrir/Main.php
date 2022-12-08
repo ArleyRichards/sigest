@@ -88,13 +88,14 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Turmas</h1>
+                    <h1 class="m-0">Cadastrar Turma</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="<?= DIRPAGE . 'dashboard' ?>">Painel Gestor</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Turmas</li>
+                            <li class="breadcrumb-item"><a href="<?= DIRPAGE . 'turma' ?>">Turmas</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Cadastro</li>
                         </ol>
                     </nav>
                 </div><!-- /.col -->
@@ -104,13 +105,8 @@
     <!-- /.content-header -->
 
     <?php
-    $rowTurma = $this->getData()['turma'];
-    $rowCurso = $this->getData()['curso'];
-    $rowDocente = $this->getData()['docente'];
-
-    //echo '<pre>';
-    //var_dump($rowCurso);
-    //echo '</pre>';
+    $curso = $this->getData()['curso'];
+    $docente = $this->getData()['docente'];
     ?>
 
     <!-- Main content -->
@@ -121,48 +117,68 @@
                     <div class="card">
                         <div class="card-header">
                             <!--<h3 class="card-title">Relação de Instituições Cadastradas</h3>-->
-                            <a href="turma/cadastro" class="btn btn-outline-info"><i class="fas fa-plus"></i> Nova Turma</a>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>COD</th>
-                                        <th>Curso</th>
-                                        <th>Docente</th>
-                                        <th>Vagas</th>                                        
-                                        <th>Início</th>
-                                        <th>Horário</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    if ($rowTurma) {                                        
-                                        foreach ($rowTurma as $key => $turma) {                                            
-                                            echo '<tr>';
-                                            echo '<td><a href="' . DIRPAGE . 'turma/detalhes/' . $turma['id'] . '" style="cursor: pointer" class="list-group-item-action">' . $turma['codigo'] . '</a></td>';
-                                            echo '<td><a href="' . DIRPAGE . 'curso/detalhes/' . $turma['id_curso'] . '" style="cursor: pointer" class="list-group-item-action">' . $rowCurso[$key][0]['nome']. '</a></td>';
-                                            echo '<td><a href="' . DIRPAGE . 'docente/detalhes/' . $turma['id_docente'] . '" style="cursor: pointer" class="list-group-item-action">' . $rowDocente[$key][0]['nome'] . '</a></td>';
-                                            echo '<td>' . $turma['vagas'] . '</td>';
-                                            echo '<td>' . date("d-m-Y", strtotime($turma['data_inicio'])) . '</td>';
-                                            echo '<td>' . date("h:i", strtotime($turma['horario_inicio'])) . '</td>';
-                                            echo '</tr>';                                            
-                                        }
-                                    }
-                                    ?>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>COD</th>
-                                        <th>Curso</th>
-                                        <th>Docente</th>
-                                        <th>Vagas</th>                                        
-                                        <th>Início</th>
-                                        <th>Horário</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                            <form action="../salvar" method="post">
+                                <input type="hidden" name="id_instituicao" value="<?= $_SESSION['id_instituicao'] ?>">                                   
+                                <div class="row">
+                                    <div class="form-group mb-3 col-12 col-lg-3">
+                                        <label for="campo-codigo">Código<span class="text-danger"> *</span></label>
+                                        <input type="text" name="codigo" id="campo-ch" maxlength="20" class="form-control">
+                                    </div>
+                                    <div class="form-group mb-3 col-12 col-lg-9">
+                                        <label for="select-curso">Curso<span class="text-danger"> *</span></label>
+                                        <select class="form-control" name="c" disabled>
+                                            <?php
+                                            foreach ($curso as $key => $c) {
+                                                echo '<option value="' . $c['id'] . '" selected>[' . $c['id'] . '] - ' . $c['nome'] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                        <input type="hidden" name="curso" value="<?=$c['id']?>">
+                                    </div>                                    
+                                </div>                 
+                                <div class="row">
+                                    <div class="form-group mb-3 col-12 col-lg-3">
+                                        <label for="campo-vagas">Número de Vagas</label>
+                                        <input type="number" class="form-control" name="vagas">
+                                    </div>
+                                    <div class="form-group mb-3 col-12 col-lg-9">
+                                        <label for="select-docente">Docente<span class="text-danger"> *</span></label>
+                                        <select class="form-control" name="docente">
+                                            <option value="" selected>Selecione</option>       
+                                            <?php
+                                            foreach ($docente as $key => $d) {
+                                                echo '<option value="' . $d['id'] . '">[' . $d['id'] . '] - ' . $d['nome'] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>  
+                                </div>     
+                                <div class="row justify-content-between">
+                                    <div class="form-group mb-3 col-6 col-lg-3">
+                                        <label for="data-inicio">Data de Início</label>
+                                        <input type="date" class="form-control" name="data_inicio">
+                                    </div>  
+                                    <div class="form-group mb-3 col-6 col-lg-3">
+                                        <label for="data-fim">Data de Término</label>
+                                        <input type="date" class="form-control" name="data_fim">
+                                    </div> 
+                                    <div class="form-group mb-3 col-6 col-lg-3">
+                                        <label for="data-inicio">Horário de Início</label>
+                                        <input type="time" class="form-control" name="horario_inicio">
+                                    </div>  
+                                    <div class="form-group mb-3 col-6 col-lg-3">
+                                        <label for="data-fim">Horário de Término</label>
+                                        <input type="time" class="form-control" name="horario_fim">
+                                    </div> 
+                                </div>
+
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-primary"> <i class="fas fa-save"></i> Salvar</button>
+                                </div>
+                            </form>
                         </div>
                         <!-- /.card-body -->
                     </div>

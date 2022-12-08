@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\ClassCurso;
 use App\Model\ClassInstituicao;
+use App\Model\ClassTurma;
 use Src\Classes\ClassRender;
 use Src\Interfaces\InterfaceView;
 use Src\Traits\TraitUrlParser;
@@ -86,16 +87,18 @@ class ControllerCurso extends ClassRender implements InterfaceView {
                 }
                 if (isset($_SESSION['id'])) {
                     $Curso = new ClassCurso();
+                    $Turma = new ClassTurma();
                     $Instituicao = new ClassInstituicao();
 
-                    $rowCurso = $Curso->read($id);                    
+                    $rowCurso = $Curso->read($id);           
+                    $rowTurma = $Turma->selectByCurso($id);
                     $rowInstituicao = $Instituicao->read($rowCurso[0]['id_instituicao']);
 
                     $this->setTitle("Cursos");
                     $this->setDescription("Painel Cursos");
                     $this->setKeywords("dashboard, painel principal, sistema");
                     $this->setDir("gestor/curso/detalhes");
-                    $this->setData(['msg' => $this->msg, 'curso' => $rowCurso, 'instituicao' => $rowInstituicao]);
+                    $this->setData(['msg' => $this->msg, 'curso' => $rowCurso, 'turma' => $rowTurma, 'instituicao' => $rowInstituicao]);
                     $this->renderLayout();
                 } else {
                     header('Location: ' . DIRPAGE . '/login');

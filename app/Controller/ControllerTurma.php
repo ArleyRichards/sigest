@@ -29,7 +29,7 @@ class ControllerTurma extends ClassRender implements InterfaceView {
         if (isset($_SESSION['id'])) {
             if (isset($_GET['msg'])) {
                 if ($_GET['msg'] == 'create_success') {
-                    $this->msg = 'Discente cadastrado com sucesso!';
+                    $this->msg = 'Turma aberta com sucesso!';
                 } else if ($_GET['msg'] == 'update_success') {
                     $this->msg = 'Dados atualizados com sucesso!';
                 }
@@ -162,7 +162,7 @@ class ControllerTurma extends ClassRender implements InterfaceView {
     public function salvar() {
         $Turma = new ClassTurma();
         $id_instituicao = $_POST['id_instituicao'];
-
+        
         if (isset($_POST)) {
             if (isset($_POST['codigo']) && $_POST['codigo'] != '') {
                 $codigo = $_POST['codigo'];
@@ -195,7 +195,7 @@ class ControllerTurma extends ClassRender implements InterfaceView {
                                             } else {
                                                 //echo '<script>console.log("'.var_dump($_POST).'")</script>';
 
-                                                header('Location:' . DIRPAGE . 'turma?msg=create_success' . $result);
+                                                header('Location:' . DIRPAGE . 'turma?msg=create_success');
                                             }
                                         } else {
                                             header('Location:' . DIRPAGE . 'turma/cadastro?msg=incomplete_fields');
@@ -222,6 +222,7 @@ class ControllerTurma extends ClassRender implements InterfaceView {
                 header('Location:' . DIRPAGE . 'turma/cadastro?msg=incomplete_fields');
             }
         }
+        
     }
 
     public function atualizar() {
@@ -287,6 +288,37 @@ class ControllerTurma extends ClassRender implements InterfaceView {
                 header('Location:' . DIRPAGE . 'turma/edicao/'.$id.'?msg=incomplete_fields');
             }
         }
+    }
+    
+    //MÉTODOS EXCLUSIVOS DA TURMA
+    public function abrir($id){        
+        //session_start();
+        $this->msg = null;
+        if (count($this->parseUrl()) == 3) {
+            if (isset($_GET['msg'])) {
+                if ($_GET['msg'] == 'error') {
+                    $this->msg = 'Erro ao salvar os dados';
+                } else if ($_GET['msg'] == 'incomplete_fields') {
+                    $this->msg = 'Preencha todos os campos obrigatórios';
+                }
+            }
+            if (isset($_SESSION['id'])) {
+                $Instituicao = $_SESSION['id_instituicao'];
+                $Curso = new ClassCurso();
+                $Docente = new ClassDocente();
+                $rowCursos = $Curso->read($id);
+                $rowDocente = $Docente->all($Instituicao);
+
+                $this->setTitle("Turmas");
+                $this->setDescription("Painel Turmas");
+                $this->setKeywords("dashboard, painel principal, sistema");
+                $this->setDir("gestor/turma/abrir");
+                $this->setData(['msg' => $this->msg, 'curso' => $rowCursos, 'docente' => $rowDocente]);
+                $this->renderLayout();
+            } else {
+                header('Location: login');
+            }
+        }       
     }
 
     //MÉTODOS DE APOIO

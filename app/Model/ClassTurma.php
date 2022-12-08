@@ -55,6 +55,7 @@ class ClassTurma extends ClassConexao
                 'horario_inicio' => $Fetch['horario_inicio'],
                 'id_curso' =>  $Fetch['id_curso'],
                 'id_docente' =>  $Fetch['id_docente'],
+                'status' =>  $Fetch['status'],
             ];
             $I++;
         }
@@ -124,6 +125,28 @@ class ClassTurma extends ClassConexao
         }
     }  
 
+    public function selectByCurso($id){
+        $Array = null;
+        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM turmas WHERE id_curso = '$id'");
+        $BFetch->execute();
+
+        $I = 0;
+        while ($Fetch = $BFetch->fetch(PDO::FETCH_ASSOC)) {
+            $Array[$I] = [
+                'id' => $Fetch['id'],
+                'codigo' => $Fetch['codigo'],      
+                'vagas' => $Fetch['vagas'],
+                'data_inicio' => $Fetch['data_inicio'],
+                'horario_inicio' => $Fetch['horario_inicio'],
+                'id_curso' =>  $Fetch['id_curso'],
+                'id_docente' =>  $Fetch['id_docente'],
+                'status' =>  $Fetch['status'],
+            ];
+            $I++;
+        }
+        return $Array;        
+    }
+    
     #MÉTODO DE APOIO
     #EXIBE OS DETALHES DA INSTITUIÇÃO
     public function readInstituicao($id)

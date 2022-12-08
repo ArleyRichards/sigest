@@ -134,11 +134,10 @@
                                     </div>
                                     <div class="form-group mb-3 col-12 col-lg-9">
                                         <label for="select-curso">Curso<span class="text-danger"> *</span></label>
-                                        <select class="form-control" name="curso">
-                                            <option selected="<?=$turma['id_curso']?>" value="">Selecione</option>
+                                        <select class="form-control" name="curso" disabled>
                                             <?php
                                             foreach ($curso as $key => $c) {
-                                                echo '<option value="' . $c['id'] . '">[' . $c['id'] . '] - ' . $c['nome'] . '</option>';
+                                                echo '<option value="' . $c['id'] . '" selected>[' . $c['id'] . '] - ' . $c['nome'] . '</option>';
                                             }
                                             ?>
                                         </select>
