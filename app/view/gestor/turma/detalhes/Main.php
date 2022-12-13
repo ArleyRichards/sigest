@@ -105,8 +105,6 @@
 
     <?php
     $turma = $this->getData()['turma'][0];
-    $curso = $this->getData()['curso'][0];
-    $docente = $this->getData()['docente'][0];
     ?>
 
     <section class="content">
@@ -126,7 +124,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <h4>
-                                    <i class="fas fa-users-cog"></i> <span class="text-muted">Turma </span>[<?= $turma['codigo'] ?>] - <?= $curso['nome'] ?>                                    
+                                    <i class="fas fa-users-cog"></i> <span class="text-muted">Turma </span>[<?= $turma['codigo'] ?>] - <?= $turma['curso'] ?>                                    
                                     <small class="float-right"><a href="<?=DIRPAGE.'turma/edicao/'.$turma['id']?>" class="btn btn-outline-info">Alterar Informações</a></small>
                                 </h4>
                             </div>
@@ -148,9 +146,9 @@
                                 <p></p>
                                 <address>
                                     <span class="text-muted">Docente:</span><br>
-                                    <strong><?= $docente['nome'] ?></strong><br>
-                                    <?= $docente['email'] ?><br>
-                                    <?= $docente['telefone'] ?><br>
+                                    <strong><?= $turma['docente'] ?></strong><br>
+                                    <?= $turma['email'] ?><br>
+                                    <?= $turma['telefone'] ?><br>
                                 </address>
                             </div>
                             <!-- /.col -->

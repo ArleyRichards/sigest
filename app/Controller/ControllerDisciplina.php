@@ -35,13 +35,17 @@ class ControllerTurma extends ClassRender implements InterfaceView {
                 }
             }
             $Turma = new ClassTurma();
-            $instituicao = $_SESSION['id_instituicao'];
+            $Instituicao = $_SESSION['id_instituicao'];
+
+            //CHAMADA DOS MÉTODOS DE APOIO
+            $resultCursos = $this->listaCursos($Turma->all($Instituicao));
+            $resultDocentes = $this->listaDocentes($Turma->all($Instituicao));
 
             $this->setTitle("Turmas");
             $this->setDescription("Painel Turmas");
             $this->setKeywords("dashboard, painel principal, sistema");
             $this->setDir("gestor/turma/index");
-            $this->setData(['msg' => $this->msg, 'turma' => $Turma->all($instituicao)]);
+            $this->setData(['msg' => $this->msg, 'turma' => $Turma->all($Instituicao), 'curso' => $resultCursos, 'docente' => $resultDocentes]);
             $this->renderLayout();
         } else {
             header('Location: login');
@@ -91,15 +95,19 @@ class ControllerTurma extends ClassRender implements InterfaceView {
                     }
                 }
                 if (isset($_SESSION['id'])) {
-                    
+                    $Curso = new ClassCurso();
                     $Turma = new ClassTurma();
-                    $rowTurma = $Turma->read($id);                                        
+                    $Docente = new ClassDocente();
+
+                    $rowTurma = $Turma->read($id);
+                    $rowCurso = $Curso->read($rowTurma[0]['id_curso']);
+                    $rowDocente = $Docente->read($rowTurma[0]['id_docente']);
 
                     $this->setTitle("Turma");
                     $this->setDescription("Painel Turma");
                     $this->setKeywords("dashboard, painel principal, sistema");
                     $this->setDir("gestor/turma/detalhes");
-                    $this->setData(['msg' => $this->msg, 'turma' => $rowTurma]);
+                    $this->setData(['msg' => $this->msg, 'turma' => $rowTurma, 'curso' => $rowCurso, 'docente' => $rowDocente]);
                     $this->renderLayout();
                 } else {
                     header('Location: ' . DIRPAGE . '/login');
@@ -309,6 +317,37 @@ class ControllerTurma extends ClassRender implements InterfaceView {
                 header('Location: login');
             }
         }
+    }
+
+    //MÉTODOS DE APOIO
+    public function listaCursos($rowTurmas) {
+        $Curso = new ClassCurso();
+        $cursos = [];
+
+        if (isset($rowTurmas) && $rowTurmas != null) {
+            foreach ($rowTurmas as $key => $turma) {
+                $cursos[$key] = $Curso->read($turma['id_curso']);
+            }
+        }
+
+        /* echo '<script> console.log("'.json_encode($rowTurmas).'")</script>';
+          var_dump($rowTurmas[0]); */
+
+        return $cursos;
+    }
+
+    public function listaDocentes($rowTurmas) {
+        $Docente = new ClassDocente();
+        $docentes = [];
+
+        if (isset($rowTurmas) && $rowTurmas != null) {
+            foreach ($rowTurmas as $key => $turma) {
+                $docentes[$key] = $Docente->read($turma['id_docente']);
+            }
+        }
+        /* echo '<script> console.log("'.json_encode($rowTurmas).'")</script>';
+          var_dump($rowTurmas[0]); */
+        return $docentes;
     }
 
 }

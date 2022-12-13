@@ -42,16 +42,16 @@ class ClassCurso extends ClassConexao
     public function all($instituicao)
     {
         $Array = null;
-        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM cursos WHERE id_instituicao = '$instituicao'");
+        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM cr_cursos WHERE cr_id_instituicao = '$instituicao'");
         $BFetch->execute();
 
         $I = 0;
         while ($Fetch = $BFetch->fetch(PDO::FETCH_ASSOC)) {
             $Array[$I] = [
-                'id' => $Fetch['id'],
-                'nome' => $Fetch['nome'],      
-                'nivel' => $Fetch['nivel'],      
-                'carga_horaria' => $Fetch['carga_horaria']   
+                'id' => $Fetch['cr_id'],
+                'nome' => $Fetch['cr_nome'],      
+                'nivel' => $Fetch['cr_nivel'],      
+                'carga_horaria' => $Fetch['cr_carga_horaria']   
             ];
             $I++;
         }
@@ -65,7 +65,7 @@ class ClassCurso extends ClassConexao
         $data = null;
 
         try {
-            $this->Db = $this->conexaoDB()->prepare("INSERT INTO cursos (nome, nivel, carga_horaria, descricao, ativo, id_instituicao)
+            $this->Db = $this->conexaoDB()->prepare("INSERT INTO cr_cursos (cr_nome, cr_nivel, cr_carga_horaria, cr_descricao, cr_ativo, cr_id_instituicao)
              values (:nome, :nivel, :carga_horaria, :descricao, :id_instituicao, :ativo)");
             $this->Db->bindParam(":nome", $nome, PDO::PARAM_STR);
             $this->Db->bindParam(":nivel", $nivel, PDO::PARAM_STR);            
@@ -89,19 +89,31 @@ class ClassCurso extends ClassConexao
     public function read($id)
     {
         $Array = null;
-        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM cursos WHERE id = '$id'");
+        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM cr_cursos WHERE cr_id = '$id'");
         $BFetch->execute();
 
-        $Fetch = $BFetch->fetchAll();
+        //$Fetch = $BFetch->fetchAll();
+        $I = 0;
+        while ($Fetch = $BFetch->fetch(PDO::FETCH_ASSOC)) {
+            $Array[$I] = [
+                'id' => $Fetch['cr_id'],
+                'nome' => $Fetch['cr_nome'],      
+                'nivel' => $Fetch['cr_nivel'],  
+                'descricao' => $Fetch['cr_descricao'],     
+                'carga_horaria' => $Fetch['cr_carga_horaria']   
+            ];
+            $I++;
+        }
+        return $Array;
 
-        return $Fetch;
+        //return $Fetch;
     } 
 
     #ATUALIZA OS DADOS DO DISCENTE
     public function update($id, $nome, $nivel, $ch, $descricao){
         try {
             $msg = null;
-            $BFetch = $this->Db = $this->conexaoDB()->prepare("UPDATE cursos SET nome = '$nome', nivel = '$nivel', carga_horaria = '$ch', descricao = '$descricao' WHERE id = :id");
+            $BFetch = $this->Db = $this->conexaoDB()->prepare("UPDATE cr_cursos SET cr_nome = '$nome', cr_nivel = '$nivel', cr_carga_horaria = '$ch', cr_descricao = '$descricao' WHERE cr_id = :id");
             $this->Db->bindParam(":id", $id, PDO::PARAM_INT);
 
             if ($BFetch->execute()) {
@@ -116,18 +128,5 @@ class ClassCurso extends ClassConexao
             return $msg;
         }
     }  
-
-    #MÉTODO DE APOIO
-    #EXIBE OS DETALHES DA INSTITUIÇÃO
-    public function readInstituicao($id)
-    {
-        $Array = null;
-        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM escolas WHERE id = '$id'");
-        $BFetch->execute();
-
-        $Fetch = $BFetch->fetchAll();
-
-        return $Fetch;
-    }   
    
 }

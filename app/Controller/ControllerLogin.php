@@ -53,24 +53,25 @@ class ControllerLogin extends ClassRender implements InterfaceView
     {
         $user = new ClassLogin();
         $this->recuperaVar();
-        $dados = $user->selecionaUsuario($this->email, $this->senha);
+        $dados = $user->selecionaUsuario($this->email, $this->senha);        
 
+        
         if ($dados == null) {
             $result = '<small class="text-danger">Verifique seus dados</small>';
+            //echo '<script>console.log('.$dados.')</script>';
+            //var_dump($_POST);
             header('Location:' . DIRPAGE . 'login?msg=error');
             $this->msg = "Usuário ou Senha inválidos";
         } else {
-
-            $nivel = $dados[0]['nivel'];            
+            //$nivel = $dados[0]['us_nivel'];            
             ob_start();
             session_start();
-            $_SESSION['id'] = $dados[0]['id'];
-            $_SESSION['email'] = $dados[0]['email'];
-            $_SESSION['nome'] = $dados[0]['nome'];
-            $_SESSION['nivel'] = $dados[0]['nivel'];
-            $_SESSION['id_instituicao'] = $dados[0]['instituicao'];
-            header('Location:' . DIRPAGE . 'dashboard');
-            
+            $_SESSION['id'] = $dados[0]['us_id'];
+            $_SESSION['email'] = $dados[0]['us_email'];
+            $_SESSION['nome'] = $dados[0]['us_nome'];
+            $_SESSION['nivel'] = $dados[0]['us_nivel'];
+            $_SESSION['id_instituicao'] = $dados[0]['us_id_instituicao'];
+            header('Location:' . DIRPAGE . 'dashboard');        
         }
     }
 }

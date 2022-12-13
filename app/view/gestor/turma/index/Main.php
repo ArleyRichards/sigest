@@ -105,8 +105,6 @@
 
     <?php
     $rowTurma = $this->getData()['turma'];
-    $rowCurso = $this->getData()['curso'];
-    $rowDocente = $this->getData()['docente'];
 
     //echo '<pre>';
     //var_dump($rowCurso);
@@ -142,8 +140,8 @@
                                         foreach ($rowTurma as $key => $turma) {                                            
                                             echo '<tr>';
                                             echo '<td><a href="' . DIRPAGE . 'turma/detalhes/' . $turma['id'] . '" style="cursor: pointer" class="list-group-item-action">' . $turma['codigo'] . '</a></td>';
-                                            echo '<td><a href="' . DIRPAGE . 'curso/detalhes/' . $turma['id_curso'] . '" style="cursor: pointer" class="list-group-item-action">' . $rowCurso[$key][0]['nome']. '</a></td>';
-                                            echo '<td><a href="' . DIRPAGE . 'docente/detalhes/' . $turma['id_docente'] . '" style="cursor: pointer" class="list-group-item-action">' . $rowDocente[$key][0]['nome'] . '</a></td>';
+                                            echo '<td><a href="' . DIRPAGE . 'curso/detalhes/' . $turma['id_curso'] . '" style="cursor: pointer" class="list-group-item-action">' . $turma['curso']. '</a></td>';
+                                            echo '<td><a href="' . DIRPAGE . 'docente/detalhes/' . $turma['id_docente'] . '" style="cursor: pointer" class="list-group-item-action">' . $turma['docente'] . '</a></td>';
                                             echo '<td>' . $turma['vagas'] . '</td>';
                                             echo '<td>' . date("d-m-Y", strtotime($turma['data_inicio'])) . '</td>';
                                             echo '<td>' . date("h:i", strtotime($turma['horario_inicio'])) . '</td>';

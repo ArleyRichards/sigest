@@ -95,7 +95,7 @@
            <div class="card">
              <div class="card-header">
                <!--<h3 class="card-title">Relação de Instituições Cadastradas</h3>-->
-               <a href="instituicao/cadastro">Cadastro</a>
+               <a class="btn btn-outline-info" href="gestor/cadastro"><i class="fas fa-plus"></i> Cadastro</a>
              </div>
              <!-- /.card-header -->
              <div class="card-body">
@@ -110,14 +110,13 @@
                  </thead>
                  <tbody>
                    <?php
-                    $rowGestor = $this->getData()['gestor'];
-                    $rowInstituicao = $this->getData()['instituicao'];                    
+                    $rowGestor = $this->getData()['gestor'];                                     
                     foreach ($rowGestor as $key => $gestor) {
                       echo '<tr>';
                       echo '<td><a href="'.DIRPAGE.'gestor/detalhes/'.$gestor['id'].'" style="cursor: pointer" class="list-group-item-action">' . $gestor['id'] . '</a></td>';
                       echo '<td><a href="'.DIRPAGE.'gestor/detalhes/'.$gestor['id'].'" style="cursor: pointer" class="list-group-item-action">' . $gestor['nome'] . '</a></td>';
-                      echo '<td><a href="'.DIRPAGE.'instituicao/detalhes/'.$gestor['instituicao'].'" style="cursor: pointer" class="list-group-item-action">'.$rowInstituicao[0]['nome_fantasia'].'</a></td>';                      
-                      echo '<td><a href="'.DIRPAGE.'instituicao/detalhes/'.$gestor['instituicao'].'" style="cursor: pointer" class="list-group-item-action">'.$rowInstituicao[0]['uf'].'</a></td>';                                            
+                      echo '<td><a href="'.DIRPAGE.'instituicao/detalhes/'.$gestor['instituicao'].'" style="cursor: pointer" class="list-group-item-action">'.$gestor['nome_fantasia'].'</a></td>';                      
+                      echo '<td><a href="'.DIRPAGE.'instituicao/detalhes/'.$gestor['instituicao'].'" style="cursor: pointer" class="list-group-item-action">'.$gestor['uf'].'</a></td>';                                            
                       echo '</tr>';
                     }
                     ?>

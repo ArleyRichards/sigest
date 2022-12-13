@@ -88,17 +88,16 @@ class ControllerCurso extends ClassRender implements InterfaceView {
                 if (isset($_SESSION['id'])) {
                     $Curso = new ClassCurso();
                     $Turma = new ClassTurma();
-                    $Instituicao = new ClassInstituicao();
+                    
 
                     $rowCurso = $Curso->read($id);           
-                    $rowTurma = $Turma->selectByCurso($id);
-                    $rowInstituicao = $Instituicao->read($rowCurso[0]['id_instituicao']);
+                    $rowTurma = $Turma->selectByCurso($id);                    
 
                     $this->setTitle("Cursos");
                     $this->setDescription("Painel Cursos");
                     $this->setKeywords("dashboard, painel principal, sistema");
                     $this->setDir("gestor/curso/detalhes");
-                    $this->setData(['msg' => $this->msg, 'curso' => $rowCurso, 'turma' => $rowTurma, 'instituicao' => $rowInstituicao]);
+                    $this->setData(['msg' => $this->msg, 'curso' => $rowCurso, 'turma' => $rowTurma]);
                     $this->renderLayout();
                 } else {
                     header('Location: ' . DIRPAGE . '/login');

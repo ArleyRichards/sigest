@@ -99,6 +99,13 @@
      </div><!-- /.container-fluid -->
    </div>
    <!-- /.content-header -->
+   
+   <?php
+    $cursos = $this->getData()['cursos'];
+    $discentes = $this->getData()['discentes'];
+    $docentes = $this->getData()['docentes'];
+    $turmas = $this->getData()['turmas'];
+   ?>
 
    <!-- Main content -->
    <section class="content">
@@ -109,58 +116,55 @@
            <!-- small box -->
            <div class="small-box bg-info">
              <div class="inner">
-               <h3>150</h3>
-               <p>Instituições</p>
+               <h3><?=$cursos?></h3>
+               <p>Cursos</p>
              </div>
              <div class="icon">
-               <i class="fas fa-school"></i>
+               <i class="fas fa-graduation-cap"></i>
              </div>
-             <a href="instituicao" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+             <a href="<?= DIRPAGE.'curso'?>" class="small-box-footer"> Ver Mais <i class="fas fa-arrow-circle-right"></i></a>
            </div>
          </div>
          <!-- ./col -->
          <div class="col-lg-3 col-6">
            <!-- small box -->
-           <div class="small-box bg-success">
+           <div class="small-box bg-info">
              <div class="inner">
-               <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-               <p>Bounce Rate</p>
+               <h3><?=$discentes?></h3>
+               <p>Discentes</p>
              </div>
              <div class="icon">
-               <i class="ion ion-stats-bars"></i>
+               <i class="fas fa-users"></i>
              </div>
-             <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+             <a href="<?= DIRPAGE.'discente'?>" class="small-box-footer">Ver Mais <i class="fas fa-arrow-circle-right"></i></a>
            </div>
          </div>
          <!-- ./col -->
          <div class="col-lg-3 col-6">
            <!-- small box -->
-           <div class="small-box bg-warning">
+           <div class="small-box bg-info">
              <div class="inner">
-               <h3>44</h3>
-
-               <p>User Registrations</p>
+               <h3><?=$docentes?></h3>
+               <p>Docentes</p>
              </div>
              <div class="icon">
-               <i class="ion ion-person-add"></i>
+               <i class="fas fa-user-tie"></i>
              </div>
-             <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+             <a href="<?= DIRPAGE.'docente'?>" class="small-box-footer">Ver Mais <i class="fas fa-arrow-circle-right"></i></a>
            </div>
          </div>
          <!-- ./col -->
          <div class="col-lg-3 col-6">
            <!-- small box -->
-           <div class="small-box bg-danger">
+           <div class="small-box bg-info">
              <div class="inner">
-               <h3>65</h3>
-
-               <p>Unique Visitors</p>
+               <h3><?=$turmas?></h3>
+               <p>Turmas</p>
              </div>
              <div class="icon">
-               <i class="ion ion-pie-graph"></i>
+               <i class="fas fa-chalkboard-teacher"></i>
              </div>
-             <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+             <a href="<?= DIRPAGE.'turma'?>" class="small-box-footer">Ver Mais <i class="fas fa-arrow-circle-right"></i></a>
            </div>
          </div>
          <!-- ./col -->

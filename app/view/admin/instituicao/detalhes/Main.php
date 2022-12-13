@@ -94,7 +94,7 @@
          <div class="col-md-4">
 
            <!-- Profile Image -->
-           <div class="card card-primary card-outline">
+           <div class="card card-primary card-outline">               
              <div class="card-body box-profile">
                <div class="text-center">
                  <img class="profile-user-img img-fluid img-circle" src="<?= DIRIMG.'edificio-96.png'?>" alt="User profile picture">
@@ -102,6 +102,9 @@
 
                <?php
                 $instituicao = $this->getData()['instituicao'][0];
+                /*echo '<pre>';
+                var_dump($instituicao);
+                echo '</pre>';*/
                ?>
 
                <h3 class="profile-username text-center"><?=$instituicao['nome_fantasia']?></h3>

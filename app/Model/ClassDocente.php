@@ -42,15 +42,15 @@ class ClassDocente extends ClassConexao
     public function all($instituicao)
     {
         $Array = null;
-        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM docentes WHERE id_instituicao = '$instituicao'");
+        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM do_docentes WHERE do_id_instituicao = '$instituicao'");
         $BFetch->execute();
 
         $I = 0;
         while ($Fetch = $BFetch->fetch(PDO::FETCH_ASSOC)) {
             $Array[$I] = [
-                'id' => $Fetch['id'],
-                'nome' => $Fetch['nome'],      
-                'id_instituicao' => $Fetch['id_instituicao'],
+                'id' => $Fetch['do_id'],
+                'nome' => $Fetch['do_nome'],      
+                'id_instituicao' => $Fetch['do_id_instituicao'],
             ];
             $I++;
         }
@@ -64,7 +64,7 @@ class ClassDocente extends ClassConexao
         $data = null;
 
         try {
-            $this->Db = $this->conexaoDB()->prepare("INSERT INTO docentes (nome, formacao, nascimento, cpf, rg, email, telefone, pcd, id_instituicao, ativo)
+            $this->Db = $this->conexaoDB()->prepare("INSERT INTO do_docentes (do_nome, do_formacao, do_nascimento, do_cpf, do_rg, do_email, do_telefone, do_pcd, do_id_instituicao, do_ativo)
              values (:nome, :formacao, :nascimento, :cpf, :rg, :email, :telefone, :pcd, :id_instituicao, :ativo)");
             $this->Db->bindParam(":nome", $nome, PDO::PARAM_STR);
             $this->Db->bindParam(":formacao", $formacao, PDO::PARAM_STR);            
@@ -92,19 +92,35 @@ class ClassDocente extends ClassConexao
     public function read($id)
     {
         $Array = null;
-        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM docentes WHERE id = '$id'");
+        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM do_docentes WHERE do_id = '$id'");
         $BFetch->execute();
 
-        $Fetch = $BFetch->fetchAll();
+//        $Fetch = $BFetch->fetchAll();
 
-        return $Fetch;
+        $I = 0;
+        while ($Fetch = $BFetch->fetch(PDO::FETCH_ASSOC)) {
+            $Array[$I] = [
+                'id' => $Fetch['do_id'],
+                'nome' => $Fetch['do_nome'],  
+                'email' => $Fetch['do_email'],
+                'telefone' => $Fetch['do_telefone'],              
+                'formacao' => $Fetch['do_formacao'],
+                'nascimento' => $Fetch['do_nascimento'],
+                'cpf' => $Fetch['do_cpf'],
+                'rg' => $Fetch['do_rg'],
+                'pcd' => $Fetch['do_pcd'],
+                'id_instituicao' => $Fetch['do_id_instituicao'],
+            ];
+            $I++;
+        }
+        return $Array;
     } 
 
     #ATUALIZA OS DADOS DO DISCENTE
     public function update($id, $nome, $formacao, $nascimento, $cpf, $rg, $email, $telefone, $pcd, $instituicao){
         try {
             $msg = null;
-            $BFetch = $this->Db = $this->conexaoDB()->prepare("UPDATE docentes SET nome = '$nome', formacao = '$formacao', nascimento = '$nascimento', cpf = '$cpf', rg = '$rg',  email = '$email', telefone = '$telefone', pcd = '$pcd', id_instituicao = '$instituicao' WHERE id = :id");
+            $BFetch = $this->Db = $this->conexaoDB()->prepare("UPDATE do_docentes SET do_nome = '$nome', do_formacao = '$formacao', do_nascimento = '$nascimento', do_cpf = '$cpf', do_rg = '$rg',  do_email = '$email', do_telefone = '$telefone', do_pcd = '$pcd', do_id_instituicao = '$instituicao' WHERE do_id = :id");
             $this->Db->bindParam(":id", $id, PDO::PARAM_INT);
 
             if ($BFetch->execute()) {
@@ -119,18 +135,5 @@ class ClassDocente extends ClassConexao
             return $msg;
         }
     }  
-
-    #MÉTODO DE APOIO
-    #EXIBE OS DETALHES DA INSTITUIÇÃO
-    public function readInstituicao($id)
-    {
-        $Array = null;
-        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM escolas WHERE id = '$id'");
-        $BFetch->execute();
-
-        $Fetch = $BFetch->fetchAll();
-
-        return $Fetch;
-    }   
    
 }

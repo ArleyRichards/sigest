@@ -42,15 +42,15 @@ class ClassDiscente extends ClassConexao
     public function all($instituicao)
     {
         $Array = null;
-        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM alunos WHERE id_instituicao = '$instituicao'");
+        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM di_discentes WHERE di_id_instituicao = '$instituicao'");
         $BFetch->execute();
 
         $I = 0;
         while ($Fetch = $BFetch->fetch(PDO::FETCH_ASSOC)) {
             $Array[$I] = [
-                'id' => $Fetch['id'],
-                'nome' => $Fetch['nome'],      
-                'id_instituicao' => $Fetch['id_instituicao'],
+                'id' => $Fetch['di_id'],
+                'nome' => $Fetch['di_nome'],      
+                'id_instituicao' => $Fetch['di_id_instituicao'],
             ];
             $I++;
         }
@@ -92,19 +92,34 @@ class ClassDiscente extends ClassConexao
     public function read($id)
     {
         $Array = null;
-        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM alunos WHERE id = '$id'");
+        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM di_discentes WHERE di_id = '$id'");
         $BFetch->execute();
 
-        $Fetch = $BFetch->fetchAll();
-
-        return $Fetch;
+        $I = 0;
+        while ($Fetch = $BFetch->fetch(PDO::FETCH_ASSOC)) {
+            $Array[$I] = [
+                'id' => $Fetch['di_id'],
+                'nome' => $Fetch['di_nome'],      
+                'telefone' => $Fetch['di_telefone'], 
+                'nome_mae' => $Fetch['di_nome_mae'], 
+                'nome_pai' => $Fetch['di_nome_pai'], 
+                'nascimento' => $Fetch['di_nascimento'], 
+                'cpf' => $Fetch['di_cpf'], 
+                'rg' => $Fetch['di_rg'], 
+                'email' => $Fetch['di_email'], 
+                'pcd' => $Fetch['di_pcd'], 
+                'id_instituicao' => $Fetch['di_id_instituicao'],
+            ];
+            $I++;
+        }
+        return $Array;
     } 
 
     #ATUALIZA OS DADOS DO DISCENTE
     public function update($id, $nome, $nomeMae, $nomePai, $nascimento, $cpf, $rg, $email, $telefone, $pcd, $instituicao){
         try {
             $msg = null;
-            $BFetch = $this->Db = $this->conexaoDB()->prepare("UPDATE alunos SET nome = '$nome', nome_mae = '$nomeMae', nome_pai = '$nomePai', nascimento = '$nascimento', cpf = '$cpf', rg = '$rg',  email = '$email', telefone = '$telefone', pcd = '$pcd', id_instituicao = '$instituicao' WHERE id = :id");
+            $BFetch = $this->Db = $this->conexaoDB()->prepare("UPDATE di_discentes SET di_nome = '$nome', di_nome_mae = '$nomeMae', di_nome_pai = '$nomePai', di_nascimento = '$nascimento', di_cpf = '$cpf', di_rg = '$rg',  di_email = '$email', di_telefone = '$telefone', di_pcd = '$pcd', di_id_instituicao = '$instituicao' WHERE di_id = :id");
             $this->Db->bindParam(":id", $id, PDO::PARAM_INT);
 
             if ($BFetch->execute()) {

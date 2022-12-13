@@ -36,24 +36,25 @@ class ControllerGestor extends ClassRender implements InterfaceView
             }
 
             $gestor = new ClassGestor();
-
+            
             $this->setTitle("Gestores");
             $this->setDescription("Painel Gestores");
             $this->setKeywords("dashboard, painel principal, sistema");
             $this->setDir("admin/gestor/index");
-            $this->setData(['msg' => $this->msg, 'gestor' => $gestor->all(), 'instituicao' => $this->listarInstituicoes()]);
+            $this->setData(['msg' => $this->msg, 'gestor' => $gestor->all()]);
             $this->renderLayout();
         } else {
             header('Location: login');
         }
     }
 
-    /*
+   
     public function cadastro()
     {
         //session_start();
         $this->msg = null;
         if (count($this->parseUrl()) == 2) {
+            
             if (isset($_GET['msg'])) {
                 if ($_GET['msg'] == 'error') {
                     $this->msg = 'Erro ao salvar os dados';
@@ -61,20 +62,23 @@ class ControllerGestor extends ClassRender implements InterfaceView
                     $this->msg = 'Preencha todos os campos obrigatórios';
                 }
             }
+            
+            $Instituicao = new ClassInstituicao();
+            $rowInstituicao = $Instituicao->all();
+            
             if (isset($_SESSION['id'])) {
-                $Render = new ClassRender();
-                $Render->setTitle("Instituições");
-                $Render->setDescription("Painel Instituições");
-                $Render->setKeywords("dashboard, painel principal, sistema");
-                $Render->setDir("admin/instituicao/cadastro");
-                $Render->setData(['msg' => $this->msg]);
-                $Render->renderLayout();
+                $this->setTitle("Gestores");
+                $this->setDescription("Painel Gestores");
+                $this->setKeywords("dashboard, painel principal, sistema");
+                $this->setDir("admin/gestor/cadastro");
+                $this->setData(['msg' => $this->msg, 'instituicoes' => $rowInstituicao]);
+                $this->renderLayout();
             } else {
                 header('Location: login');
             }
         }
     }
-    */
+  
 
     public function detalhes($id)
     {
@@ -151,92 +155,13 @@ class ControllerGestor extends ClassRender implements InterfaceView
             $this->index();
         }
     }
-
-    /*
+    
     public function salvar()
     {
-        $Instituicao = new ClassInstituicao();
-        $inscricao = $_POST['inscricao-estadual'];
-        $site = $_POST['site'];
-        $numero = $_POST['numero'];
-        $telefone2 = $_POST['telefone2'];
-
-        if (isset($_POST)) {
-            if (isset($_POST['razao-social']) && $_POST['razao-social'] != '') {
-                $razao = $_POST['razao-social'];
-
-                if (isset($_POST['nome-fantasia']) && $_POST['nome-fantasia'] != '') {
-                    $fantasia = $_POST['nome-fantasia'];
-
-                    if (isset($_POST['cnpj']) && $_POST['cnpj'] != '') {
-                        $cnpj = $_POST['cnpj'];
-
-                        if (isset($_POST['regime']) && $_POST['regime'] != '') {
-                            $regime = $_POST['regime'];
-
-                            if (isset($_POST['email']) && $_POST['email'] != '') {
-                                $email = $_POST['email'];
-
-                                if (isset($_POST['uf']) && $_POST['uf'] != '') {
-                                    $uf = $_POST['uf'];
-
-                                    if (isset($_POST['cidade']) && $_POST['cidade'] != '') {
-                                        $cidade = $_POST['cidade'];
-
-                                        if (isset($_POST['bairro']) && $_POST['bairro'] != '') {
-                                            $bairro = $_POST['bairro'];
-
-                                            if (isset($_POST['logradouro']) && $_POST['logradouro'] != '') {
-                                                $logradouro = $_POST['logradouro'];
-
-                                                if (isset($_POST['cep']) && $_POST['cep'] != '') {
-                                                    $cep = $_POST['cep'];
-
-                                                    if (isset($_POST['telefone']) && $_POST['telefone'] != '') {
-                                                        $telefone1 = $_POST['telefone'];
-
-                                                        $result = $Instituicao->create($razao, $fantasia, $cnpj, $inscricao, $regime, $site, $email, $uf, $cidade, $bairro, $logradouro, $numero, $cep, $telefone1, $telefone2);
-                                                        if ($result == null) {
-                                                            header('Location:' . DIRPAGE . 'instituicao/cadastro?msg=error');
-                                                        } else {
-                                                            header('Location:' . DIRPAGE . 'instituicao?msg=create_success');
-                                                        }
-                                                    } else {
-                                                        header('Location:' . DIRPAGE . 'instituicao/cadastro?msg=incomplete_fields');
-                                                    }
-                                                } else {
-                                                    header('Location:' . DIRPAGE . 'instituicao/cadastro?msg=incomplete_fields');
-                                                }
-                                            } else {
-                                                header('Location:' . DIRPAGE . 'instituicao/cadastro?msg=incomplete_fields');
-                                            }
-                                        } else {
-                                            header('Location:' . DIRPAGE . 'instituicao/cadastro?msg=incomplete_fields');
-                                        }
-                                    } else {
-                                        header('Location:' . DIRPAGE . 'instituicao/cadastro?msg=incomplete_fields');
-                                    }
-                                } else {
-                                    header('Location:' . DIRPAGE . 'instituicao/cadastro?msg=incomplete_fields');
-                                }
-                            } else {
-                                header('Location:' . DIRPAGE . 'instituicao/cadastro?msg=incomplete_fields');
-                            }
-                        } else {
-                            header('Location:' . DIRPAGE . 'instituicao/cadastro?msg=incomplete_fields');
-                        }
-                    } else {
-                        header('Location:' . DIRPAGE . 'instituicao/cadastro?msg=incomplete_fields');
-                    }
-                } else {
-                    header('Location:' . DIRPAGE . 'instituicao/cadastro?msg=incomplete_fields');
-                }
-            } else {
-                header('Location:' . DIRPAGE . 'instituicao/cadastro?msg=incomplete_fields');
-            }
+        if(isset($_POST)){
+            
         }
-    }
-    */
+    }   
 
     public function atualizar()
     {
@@ -277,32 +202,5 @@ class ControllerGestor extends ClassRender implements InterfaceView
                 header('Location:' . DIRPAGE . 'instituicao/cadastro?msg=incomplete_fields');
             }
         }
-    }
-
-    #MÉTODOS DE APOIO
-    //MÉTODO DE APOIO PARA EXIBIR O NOME DAS INSTITUIÇÕES
-    public function listarInstituicoes()
-    {
-        $gestor = new ClassGestor();
-        $rowGestor = $gestor->all();
-        $gestores = array();
-        for ($i = 0; $i < count($rowGestor); $i++) {
-            $rowInstituicao = $gestor->readInstituicao($rowGestor[$i]['instituicao']);
-            $gestores[$i] = $rowInstituicao[0];
-        }
-        return $gestores;
-    }
-
-    #MÉTODOS DE APOIO
-    //MÉTODO DE APOIO PARA EXIBIR O NOME DAS INSTITUIÇÕES
-    public function detalhesInstituicao($id)
-    {
-        $Gestor = new ClassGestor();
-        $rowGestor = $Gestor->read($id);
-        foreach ($rowGestor as $key => $gestor) {
-        }
-        $rowInstituicao = $Gestor->readInstituicao($gestor['instituicao']);
-
-        return $rowInstituicao;
     }
 }

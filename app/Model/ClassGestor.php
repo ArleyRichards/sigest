@@ -16,22 +16,24 @@ class ClassGestor extends ClassConexao
     public function all()
     {
         $Array = null;
-        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM usuarios WHERE nivel ='GESTOR'");
-        $BFetch->execute();
-
+        $BFetch = $this->Db = $this->conexaoDB()->prepare("SELECT * FROM us_usuarios INNER JOIN it_instituicoes ON it_instituicoes.it_id = us_usuarios.us_id_instituicao WHERE us_nivel ='GESTOR'");
+        $BFetch->execute();        
         $I = 0;
         while ($Fetch = $BFetch->fetch(PDO::FETCH_ASSOC)) {
             $Array[$I] = [
-                'id' => $Fetch['id'],
-                'nome' => $Fetch['nome'],                
-                'email' => $Fetch['email'], 
-                'nivel' => $Fetch['nivel'], 
-                'ativo' => $Fetch['ativo'],
-                'instituicao' => $Fetch['instituicao'],
+                'id' => $Fetch['us_id'],
+                'nome' => $Fetch['us_nome'],                
+                'email' => $Fetch['us_email'], 
+                'nivel' => $Fetch['us_nivel'], 
+                'ativo' => $Fetch['us_ativo'],
+                'instituicao' => $Fetch['us_id_instituicao'],
+                'nome_fantasia' => $Fetch['it_nome_fantasia'],
+                'uf' => $Fetch['it_uf'],
             ];
             $I++;
         }
         return $Array;
+        //return $Fetch;
     }  
 
     #CADASTRA UM NOVO GESTOR
